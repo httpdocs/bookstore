@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.scau.mapper.BookMapper">
+    <resultMap id="BaseResultMap" type="edu.scau.model.Book">
+        <id column="isbn" property="isbn" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="stock" property="stock" jdbcType="INTEGER"/>
+        <result column="price" property="price" jdbcType="DECIMAL"/>
+        <result column="discount" property="discount" jdbcType="INTEGER"/>
+        <result column="sold" property="sold" jdbcType="INTEGER"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="publish" property="publish" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="mainPic" property="mainpic" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="edu.scau.model.Book" extends="BaseResultMap">
+        <result column="introduction" property="introduction" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    isbn, title, stock, price, discount, sold, author, publish, time, status, mainPic
+  </sql>
+    <sql id="Blob_Column_List">
+    introduction
+  </sql>
+    <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="edu.scau.model.BookExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.scau.model.BookExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="pagination != null">
+            limit #{pagination.begin} , #{pagination.length}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from book
+        where isbn = #{isbn,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from book
+    where isbn = #{isbn,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByExample" parameterType="edu.scau.model.BookExample">
+        delete from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="edu.scau.model.Book">
+    insert into book (isbn, title, stock, 
+      price, discount, sold, 
+      author, publish, time, 
+      status, mainPic, introduction
+      )
+    values (#{isbn,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{discount,jdbcType=INTEGER}, #{sold,jdbcType=INTEGER}, 
+      #{author,jdbcType=VARCHAR}, #{publish,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{mainpic,jdbcType=INTEGER}, #{introduction,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="edu.scau.model.Book">
+        insert into book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="isbn != null">
+                isbn,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="sold != null">
+                sold,
+            </if>
+            <if test="author != null">
+                author,
+            </if>
+            <if test="publish != null">
+                publish,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="mainpic != null">
+                mainPic,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="isbn != null">
+                #{isbn,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="stock != null">
+                #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=INTEGER},
+            </if>
+            <if test="sold != null">
+                #{sold,jdbcType=INTEGER},
+            </if>
+            <if test="author != null">
+                #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="publish != null">
+                #{publish,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="mainpic != null">
+                #{mainpic,jdbcType=INTEGER},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="edu.scau.model.BookExample" resultType="java.lang.Integer">
+        select count(*) from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update book
+        <set>
+            <if test="record.isbn != null">
+                isbn = #{record.isbn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.title != null">
+                title = #{record.title,jdbcType=VARCHAR},
+            </if>
+            <if test="record.stock != null">
+                stock = #{record.stock,jdbcType=INTEGER},
+            </if>
+            <if test="record.price != null">
+                price = #{record.price,jdbcType=DECIMAL},
+            </if>
+            <if test="record.discount != null">
+                discount = #{record.discount,jdbcType=INTEGER},
+            </if>
+            <if test="record.sold != null">
+                sold = #{record.sold,jdbcType=INTEGER},
+            </if>
+            <if test="record.author != null">
+                author = #{record.author,jdbcType=VARCHAR},
+            </if>
+            <if test="record.publish != null">
+                publish = #{record.publish,jdbcType=VARCHAR},
+            </if>
+            <if test="record.time != null">
+                time = #{record.time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.mainpic != null">
+                mainPic = #{record.mainpic,jdbcType=INTEGER},
+            </if>
+            <if test="record.introduction != null">
+                introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExampleWithBLOBs" parameterType="map">
+        update book
+        set isbn = #{record.isbn,jdbcType=VARCHAR},
+        title = #{record.title,jdbcType=VARCHAR},
+        stock = #{record.stock,jdbcType=INTEGER},
+        price = #{record.price,jdbcType=DECIMAL},
+        discount = #{record.discount,jdbcType=INTEGER},
+        sold = #{record.sold,jdbcType=INTEGER},
+        author = #{record.author,jdbcType=VARCHAR},
+        publish = #{record.publish,jdbcType=VARCHAR},
+        time = #{record.time,jdbcType=TIMESTAMP},
+        status = #{record.status,jdbcType=INTEGER},
+        mainPic = #{record.mainpic,jdbcType=INTEGER},
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update book
+        set isbn = #{record.isbn,jdbcType=VARCHAR},
+        title = #{record.title,jdbcType=VARCHAR},
+        stock = #{record.stock,jdbcType=INTEGER},
+        price = #{record.price,jdbcType=DECIMAL},
+        discount = #{record.discount,jdbcType=INTEGER},
+        sold = #{record.sold,jdbcType=INTEGER},
+        author = #{record.author,jdbcType=VARCHAR},
+        publish = #{record.publish,jdbcType=VARCHAR},
+        time = #{record.time,jdbcType=TIMESTAMP},
+        status = #{record.status,jdbcType=INTEGER},
+        mainPic = #{record.mainpic,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="edu.scau.model.Book">
+        update book
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="stock != null">
+                stock = #{stock,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=INTEGER},
+            </if>
+            <if test="sold != null">
+                sold = #{sold,jdbcType=INTEGER},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="publish != null">
+                publish = #{publish,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="mainpic != null">
+                mainPic = #{mainpic,jdbcType=INTEGER},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where isbn = #{isbn,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.scau.model.Book">
+    update book
+    set title = #{title,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=INTEGER},
+      sold = #{sold,jdbcType=INTEGER},
+      author = #{author,jdbcType=VARCHAR},
+      publish = #{publish,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      mainPic = #{mainpic,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=LONGVARCHAR}
+    where isbn = #{isbn,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="edu.scau.model.Book">
+    update book
+    set title = #{title,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=INTEGER},
+      sold = #{sold,jdbcType=INTEGER},
+      author = #{author,jdbcType=VARCHAR},
+      publish = #{publish,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      mainPic = #{mainpic,jdbcType=INTEGER}
+    where isbn = #{isbn,jdbcType=VARCHAR}
+  </update>
+</mapper>

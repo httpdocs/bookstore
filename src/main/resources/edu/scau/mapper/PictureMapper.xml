@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.scau.mapper.PictureMapper">
+    <resultMap id="BaseResultMap" type="edu.scau.model.Picture">
+        <id column="pictureId" property="pictureid" jdbcType="INTEGER"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="isbn" property="isbn" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    pictureId, path, isbn
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.scau.model.PictureExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from picture
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="pagination != null">
+            limit #{pagination.begin} , #{pagination.length}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from picture
+        where pictureId = #{pictureid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from picture
+    where pictureId = #{pictureid,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="edu.scau.model.PictureExample">
+        delete from picture
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="edu.scau.model.Picture">
+    insert into picture (pictureId, path, isbn
+      )
+    values (#{pictureid,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="edu.scau.model.Picture">
+        insert into picture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pictureid != null">
+                pictureId,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="isbn != null">
+                isbn,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pictureid != null">
+                #{pictureid,jdbcType=INTEGER},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="isbn != null">
+                #{isbn,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="edu.scau.model.PictureExample" resultType="java.lang.Integer">
+        select count(*) from picture
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update picture
+        <set>
+            <if test="record.pictureid != null">
+                pictureId = #{record.pictureid,jdbcType=INTEGER},
+            </if>
+            <if test="record.path != null">
+                path = #{record.path,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isbn != null">
+                isbn = #{record.isbn,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update picture
+        set pictureId = #{record.pictureid,jdbcType=INTEGER},
+        path = #{record.path,jdbcType=VARCHAR},
+        isbn = #{record.isbn,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="edu.scau.model.Picture">
+        update picture
+        <set>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="isbn != null">
+                isbn = #{isbn,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where pictureId = #{pictureid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="edu.scau.model.Picture">
+    update picture
+    set path = #{path,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR}
+    where pictureId = #{pictureid,jdbcType=INTEGER}
+  </update>
+</mapper>
