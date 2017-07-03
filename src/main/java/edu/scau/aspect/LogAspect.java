@@ -24,6 +24,7 @@ public class LogAspect {
 
     @After("execution(* edu.scau.controller.*Controller.*(..))")
     public void afterMethod() {
+    	System.out.println("after");
         logger.info("after method" + new Date());
     }
 }

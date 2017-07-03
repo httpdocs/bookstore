@@ -1,11 +1,11 @@
 package edu.scau.mapper;
 
-import edu.scau.model.Admin;
-import edu.scau.model.AdminExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import edu.scau.model.Admin;
+import edu.scau.model.AdminExample;
 
 public interface AdminMapper {
     int countByExample(AdminExample example);

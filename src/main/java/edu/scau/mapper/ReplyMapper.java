@@ -1,11 +1,11 @@
 package edu.scau.mapper;
 
-import edu.scau.model.Reply;
-import edu.scau.model.ReplyExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import edu.scau.model.Reply;
+import edu.scau.model.ReplyExample;
 
 public interface ReplyMapper {
     int countByExample(ReplyExample example);

@@ -1,11 +1,11 @@
 package edu.scau.mapper;
 
-import edu.scau.model.Cate;
-import edu.scau.model.CateExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import edu.scau.model.Cate;
+import edu.scau.model.CateExample;
 
 public interface CateMapper {
     int countByExample(CateExample example);

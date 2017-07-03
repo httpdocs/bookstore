@@ -1,12 +1,14 @@
 package edu.scau.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import edu.scau.model.Picture;
 import edu.scau.model.PictureExample;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
+@Mapper
 public interface PictureMapper {
     int countByExample(PictureExample example);
 
@@ -15,8 +17,6 @@ public interface PictureMapper {
     int deleteByPrimaryKey(Integer pictureid);
 
     int insert(Picture record);
-
-    int insertSelective(Picture record);
 
     List<Picture> selectByExample(PictureExample example);
 

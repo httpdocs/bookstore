@@ -1,11 +1,11 @@
 package edu.scau.mapper;
 
-import edu.scau.model.Comment;
-import edu.scau.model.CommentExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import edu.scau.model.Comment;
+import edu.scau.model.CommentExample;
 
 public interface CommentMapper {
     int countByExample(CommentExample example);

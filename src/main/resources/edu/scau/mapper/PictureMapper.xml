@@ -102,13 +102,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="edu.scau.model.Picture">
-    insert into picture (pictureId, path, isbn
-      )
-    values (#{pictureid,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR}
-      )
-  </insert>
-    <insert id="insertSelective" parameterType="edu.scau.model.Picture">
+    <insert id="insert" parameterType="edu.scau.model.Picture" useGeneratedKeys="true" keyProperty="pictureId">
         insert into picture
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pictureid != null">

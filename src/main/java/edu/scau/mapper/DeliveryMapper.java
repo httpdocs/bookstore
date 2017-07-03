@@ -1,12 +1,12 @@
 package edu.scau.mapper;
 
-import edu.scau.model.Delivery;
-import edu.scau.model.DeliveryExample;
-import edu.scau.model.DeliveryKey;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import edu.scau.model.Delivery;
+import edu.scau.model.DeliveryExample;
+import edu.scau.model.DeliveryKey;
 
 public interface DeliveryMapper {
     int countByExample(DeliveryExample example);

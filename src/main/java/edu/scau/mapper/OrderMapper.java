@@ -1,11 +1,11 @@
 package edu.scau.mapper;
 
-import edu.scau.model.Order;
-import edu.scau.model.OrderExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import edu.scau.model.Order;
+import edu.scau.model.OrderExample;
 
 public interface OrderMapper {
     int countByExample(OrderExample example);

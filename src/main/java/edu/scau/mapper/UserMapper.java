@@ -1,20 +1,20 @@
 package edu.scau.mapper;
 
-import edu.scau.model.User;
-import edu.scau.model.UserExample;
-
 import java.util.List;
 
 import org.apache.ibatis.annotations.*;
+
+import edu.scau.model.User;
+import edu.scau.model.UserExample;
 
 @Mapper
 public interface UserMapper {
     //注解写法
 
     //宏定义
-    String TABLE_NAME = " user ";
-    String INSERT_FIELDS = " userid, password ";
-    String SELECT_FIELDS = " name, defaddr, " + INSERT_FIELDS;
+    final static String TABLE_NAME = " user ";
+    final static String INSERT_FIELDS = " userid, password ";
+    final static String SELECT_FIELDS = " name, defaddr, " + INSERT_FIELDS;
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
             ") values(#{userid},#{password})"})
