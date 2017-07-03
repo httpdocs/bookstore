@@ -30,19 +30,20 @@ public class LoginController {
     UserService userService;
 
     //返回书城首页
-    @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET})
+    @RequestMapping(path = {"/"}, method = {RequestMethod.GET})
     public String Index(Model model) {
         return "index";
     }
 
-    //返回书城注册登录页面
-    @RequestMapping(path = {"/reglogin"}, method = {RequestMethod.GET})
-    public String regloginPage(Model model) {
-        return "login";
-    }
+
+//    @RequestMapping(path = {"/login.action"}, method = {RequestMethod.POST})
+//    public String login(Model model,  @RequestParam("username") String username,
+//                        @RequestParam("password") String password)) {
+//        return "login";
+//    }
 
     //用户点击注册
-    @RequestMapping(path = {"/reg"}, method = {RequestMethod.POST})
+    @RequestMapping(path = {"/register.action"}, method = {RequestMethod.POST})
     public String reg(Model model, @RequestParam("username") String username,
                       @RequestParam("password") String password) {
         //@RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
@@ -54,19 +55,19 @@ public class LoginController {
             Map<String, String> map = userService.register(username, password);
             if (map.containsKey("msg")) {
                 model.addAttribute("msg", map.get("msg"));
-                return "login";
+                return "register";
             }
             return "redirect:/";
         } catch (Exception e) {
             logger.error("注册异常" + e.getMessage());
             model.addAttribute("msg", "服务器错误");
-            return "login";
+            return "register";
         }
     }
 
 
     //用户点击登录
-    @RequestMapping(path = {"/login"}, method = {RequestMethod.POST})
+    @RequestMapping(path = {"/login.action"}, method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username") String username,
                         @RequestParam("password") String password) {
         //@RequestParam(value = "rememberme", defaultValue = "false") boolean rememberme,

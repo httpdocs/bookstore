@@ -1,59 +1,79 @@
 <!DOCTYPE html>
-<html lang="zh-CN"
-      class="is-AppPromotionBarVisible cssanimations csstransforms csstransitions flexbox no-touchevents no-mobile">
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="renderer" content="webkit">
-    <meta name="description" content="An online bookstore application used to sell books in various categories.
-        Building the online bookstore can induce middle link in book selling andsave a lot of human and non-human
-        resources besides offer more bibliography information .">
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title> 网上书城登陆页</title>
-    <link rel="dns-prefetch" href="">
-    <link rel="stylesheet" href="../styles/login.css">
-
+    <meta charset="UTF-8">
+    <title>bookstore登陆页面</title>
+    <link href="css/global.css" rel="stylesheet" type="text/css">
+    <link href="css/layout.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="js/login.js" type="text/javascript"></script>
 </head>
-<body class="zhi  no-auth">
-<div class="index-main">
-    <div class="index-main-body">
-        <div class="index-header">
-            <h1 class="logo hide-text"><img src="" alt=""></h1>
-            <h2 class="subtitle">
-                #if($msg)
-                <font color="#FF0000">$!{msg}！！！</font>
-
-                #else
-                <strong>网上书城</strong>
-                #end
-            </h2>
-        </div>
-        <div class="desk-front sign-flow clearfix sign-flow-simple">
-            <div class="view view-signin" data-za-module="SignInForm" style="display: block;">
-                <form action="/reg/" id="regloginform" method="post">
-                    <input type="hidden" name="_xsrf" value="21aa1c8d254df2899b23ab9afbd62a53">
-                    <div class="group-inputs">
-                        <div class="email input-wrapper">
-                            <input type="text" name="username" aria-label="手机号或邮箱" placeholder="手机号或邮箱" required="">
-                        </div>
-                        <div class="input-wrapper">
-                            <input type="password" name="password" aria-label="密码" placeholder="密码" required=""> ·
-                        </div>
-                    </div>
-                    <input type="hidden" name="next" value="$!{next}"/>
-                    <div class="button-wrapper command clearfix">
-                        <button class="sign-button submit" type="submit"
-                                onclick="form=document.getElementById('regloginform');form.action='/login/'">登录
-                        </button>
-                        <button class="sign-button submit" type="submit"
-                                onclick="form=document.getElementById('regloginform');form.action='/reg/'">注册
-                        </button>
-                    </div>
-
-                </form>
-            </div>
+<body>
+    <div id="header">
+        <div class="login_header_left"><img src="images/logo.gif" alt="logo"></div>
+        <div class="login_header_mid"><img src="images/login_header.gif" alt="header"></div>
+        <div class="login_header_right"><a href="index.html" class="blue">首页</a> | <a href="product.html" class="blue">书本展示页</a>  |
+            <a href="shopping.html" class="blue">购物车</a> | <a href="register.html" class="blue">注册</a>
         </div>
     </div>
-</div>
+    <!--header结束-->
+    <div id="main">
+        <div class="login_main_left">
+            <div>
+                <img src="images/login_main_01.jpg" alt="中间图片"/>
+                <img src="images/login_main_02.jpg" alt="中间图片"/>
+                <img src="images/login_main_03.jpg" alt="中间图片"/>
+            </div>
+            <div class="login_main_end">
+                <dl class="login_green">
+                    <dt>更多选择、更低价格</dt>
+                    <dd>100万种书本包含编程、教材、科普、小说等，价格低于实体店20%以上</dd>
+                </dl>
+                <div class="login_main_dotted"></div>
+                <dl class="login_green">
+                    <dt>全场免运费、货到付款</dt>
+                    <dd>免费送货上门、360个城市货到付款。另有微信、支付宝等多种支付方式</dd>
+                </dl>
+                <div class="login_main_dotted"></div>
+                <dl class="login_green">
+                    <dt>真实、优质的商品评论</dt>
+                    <dd>千万用户真实、优质的商品评论，给您多角度、全方位的购书参考</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="login_main_mid">
+            <div class="login_content_top">请登录bookstore网</div>
+            <div class="login_content_line"></div>
+            <form id="loginForm" action="" method="post">
+                <dl class="login_content">
+                    <dt>邮箱或昵称：</dt>
+                    <dd><input id="email" type="text" class="login_content_input"/></dd>
+                </dl>
+                <dl class="login_content">
+                    <dt>密码：</dt>
+                    <dd><input id="pwd" type="password" class="login_content_input"/></dd>
+                </dl>
+                <dl class="login_content">
+                    <dt></dt>
+                    <dd><input id="btn" value=" " type="submit" class="login_btn_out"/></dd>
+                </dl>
+            </form>
+            <div class="login_content_dotted"></div>
+            <div class="login_content_end_bg">
+                <div class="login_content_end_bg_top">
+                    <label class="login_content_bold">还不是bookstore用户？</label>快捷方便的免费注册，让你立刻尽享bookstore提供的条项优惠服务......
+                </div>
+                <div class="login_content_end_bg_end">
+                    <input id="quick_register" class="login_register_out" value=" " type="button"/>
+                </div>
+            </div>
+        </div>
+        <div class="login_main_right"><img src="images/login_main_04.jpg" alt="右侧图片"/></div>
+    </div>
+    <!--main结束-->
+    <div id="footer">
+        <iframe src="footer.html" height="50px" width="900px" frameborder="0"></iframe>
+    </div>
+
 </body>
 </html>
