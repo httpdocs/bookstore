@@ -66,7 +66,7 @@ public class LoginController {
 
 
     //用户点击登录
-    @RequestMapping(path = {"/login"}, method = {RequestMethod.POST})
+    @RequestMapping(path = {"/login.action"}, method = {RequestMethod.POST})
     public String login(Model model, @RequestParam("username") String username,
                         @RequestParam("password") String password) {
         //@RequestParam(value = "rememberme", defaultValue = "false") boolean rememberme,
@@ -75,14 +75,19 @@ public class LoginController {
             /*Service层返回的Map集合中若带有错误提示msg，则停留在当前注册登录页
               否则说明用户名密码验证成功，重定向到首页
              */
+        	System.out.println("dfdfdfdsdasdfad");
             Map<String, String> map = userService.login(username, password);
             if (map.containsKey("msg")) {
                 model.addAttribute("msg", map.get("msg"));
+                model.addAttribute("msg", "dfdfdfdfdfd");
                 return "login";
             }
+            model.addAttribute("msg", "dfdfdfdfdfd");
             return "redirect:/";
         } catch (Exception e) {
             logger.error("登陆异常" + e.getMessage());
+            model.addAttribute("msg", "dfdfdfdfdfd");
+
             return "login";
         }
     }

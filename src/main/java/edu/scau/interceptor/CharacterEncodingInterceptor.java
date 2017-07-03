@@ -20,7 +20,7 @@ public class CharacterEncodingInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception {
-		arg1.setHeader("Content-type", "text/json;charset=UTF-8");
+		arg1.setHeader("Content-type", "text/html;charset=UTF-8");
 		return true;
 	}
 

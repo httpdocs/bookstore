@@ -9,8 +9,9 @@
     <script src="js/login.js" type="text/javascript"></script>
 </head>
 <body>
+
     <div id="header">
-        <div class="login_header_left"><img src="images/logo.gif" alt="logo"></div>
+		<div class="login_header_left"><img src="images/logo.gif" alt="logo"></div>
         <div class="login_header_mid"><img src="images/login_header.gif" alt="header"></div>
         <div class="login_header_right"><a href="index.html" class="blue">首页</a> | <a href="product.html" class="blue">书本展示页</a>  |
             <a href="shopping.html" class="blue">购物车</a> | <a href="register.html" class="blue">注册</a>
@@ -44,18 +45,18 @@
         <div class="login_main_mid">
             <div class="login_content_top">请登录bookstore网</div>
             <div class="login_content_line"></div>
-            <form id="loginForm" action="" method="post">
+            <form id="loginForm" action="/login.action" method="post">
                 <dl class="login_content">
                     <dt>邮箱或昵称：</dt>
-                    <dd><input id="email" type="text" class="login_content_input"/></dd>
+                    <dd><input name="username" type="text" class="login_content_input"/></dd>
                 </dl>
                 <dl class="login_content">
                     <dt>密码：</dt>
-                    <dd><input id="pwd" type="password" class="login_content_input"/></dd>
+                    <dd><input name="password" type="password" class="login_content_input"/></dd>
                 </dl>
                 <dl class="login_content">
                     <dt></dt>
-                    <dd><input id="btn" value=" " type="submit" class="login_btn_out"/></dd>
+                    <dd><input name="btn" value=" " type="submit" class="login_btn_out"/></dd>
                 </dl>
             </form>
             <div class="login_content_dotted"></div>
