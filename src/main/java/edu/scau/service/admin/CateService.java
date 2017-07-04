@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.scau.mapper.CateMapper;
@@ -18,6 +19,7 @@ import edu.scau.util.DBSessionFactory;
 @Service
 public class CateService {
 
+	@Autowired
 	private CateMapper mapper;
 	
 	/**
@@ -55,6 +57,9 @@ public class CateService {
 	 */
 	public String list() {
 		List<Cate> list = mapper.list();
+		if(list == null){
+			return null;
+		}
 		Map<String, List<String>> map = new HashMap<>();
 		for(Cate cate : list){
 			if(cate.getParent() == null){

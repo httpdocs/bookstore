@@ -40,4 +40,5 @@ public class Admin {
     public void setAuthority(Integer authority) {
         this.authority = authority;
     }
+    
 }
