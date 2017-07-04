@@ -18,7 +18,7 @@ public class LogAspect {
 
     @Before("execution(* edu.scau.controller.*Controller.*(..))")
     public void beforeMethod(JoinPoint joinPoint) {
-
+        System.out.println("before");
 
     }
 

@@ -18,26 +18,28 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public Map<String, String> register(String username, String password) {
+    public Map<String, String> register(String userid, String username, String password) {
         Map<String, String> map = new HashMap<String, String>();
 
         //合法性检测
         if (StringUtils.isBlank(username)) {
             map.put("msg", "用户名不能为空");
+            return map;
         }
         if (StringUtils.isBlank(password)) {
             map.put("msg", "密码不能为空");
             return map;
         }
 
-        User user = userMapper.selectById(username);
+        User user = userMapper.selectById(userid);
         if (user != null) {
             map.put("msg", "用户名已经被注册");
             return map;
         }
 
         user = new User();
-        user.setUserid(username);
+        user.setUserid(userid);
+        user.setName(username);
         //MD5算法加密
         user.setPassword(BookstoreUtil.MD5(password));
         userMapper.addUser(user);
@@ -46,19 +48,20 @@ public class UserService {
         return map;
     }
 
-    public Map<String, String> login(String username, String password) {
+    public Map<String, String> login(String userid, String password) {
         Map<String, String> map = new HashMap<String, String>();
 
         //合法性检测
-        if (StringUtils.isBlank(username)) {
+        if (StringUtils.isBlank(userid)) {
             map.put("msg", "用户名不能为空");
+            return map;
         }
         if (StringUtils.isBlank(password)) {
             map.put("msg", "密码不能为空");
             return map;
         }
 
-        User user = userMapper.selectById(username);
+        User user = userMapper.selectById(userid);
         if (user == null) {
             map.put("msg", "用户名不存在");
             return map;

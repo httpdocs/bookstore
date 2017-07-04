@@ -34,46 +34,30 @@
         <div class="register_dotted_bg"></div>
         <div class="register_message">
             <!--表单的提交-->
-            <form action="" method="post" id="myform">
+            <form action="/register.action" method="post" id="myform">
                 <dl class="register_row">
                     <dt>Email地址：</dt>
-                    <dd><input id="email" type="text" class="register_input"/></dd>
+                    <dd><input name="userid" type="text" class="register_input"/></dd>
                     <dd><div id="email_prompt"></div></dd>
                 </dl>
                 <dl class="register_row">
                     <dt>设置昵称：</dt>
-                    <dd><input id="nickName" type="text" class="register_input"/></dd>
+                    <dd><input name="username" type="text" class="register_input"/></dd>
                     <dd><div id="nickName_prompt"></div></dd>
                 </dl>
                 <dl class="register_row">
                     <dt>设定密码：</dt>
-                    <dd><input id="pwd" type="password" class="register_input"/></dd>
+                    <dd><input name="password" type="password" class="register_input"/></dd>
                     <dd><div id="pwd_prompt"></div></dd>
                 </dl>
                 <dl class="register_row">
                     <dt>再输入一次密码：</dt>
-                    <dd><input id="repwd" type="password" class="register_input"/></dd>
+                    <dd><input name="password" type="password" class="register_input"/></dd>
                     <dd><div id="repwd_prompt"></div></dd>
                 </dl>
-                <dl class="register_row">
-                    <dt>性别：</dt>
-                    <dd><input name="sex" id="man" type="radio" value="男" checked="checked"/> <label for="man">男</label></dd>
-                    <dd> <input name="sex" id="woman" type="radio" value="女"/> <label for="woman">女</label></dd>
-                </dl>
-                <dl class="register_row">
-                    <dt>所在地区：</dt>
-                    <dd>
-                        <select id="province" style="width:120px;">
-                            <option>请选择省/城市</option>
-                        </select>
-                    </dd>
-                    <dd>
-                        <select id="city"  style="width:130px;">
-                            <option>请选择城市/地区</option>
-                        </select>
-                    </dd>
-                </dl>
+
                 <div class="registerBtn"><input id="registerBtn" type="image" src="images/register_btn_out.gif"/></div>
+                                                                    <font color="#FF0000">$!{msg}！！！</font>
             </form>
         </div>
     </div>

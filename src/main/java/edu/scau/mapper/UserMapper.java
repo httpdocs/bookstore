@@ -13,11 +13,11 @@ public interface UserMapper {
 
     //宏定义
     final static String TABLE_NAME = " user ";
-    final static String INSERT_FIELDS = " userid, password ";
-    final static String SELECT_FIELDS = " name, defaddr, " + INSERT_FIELDS;
+    final static String INSERT_FIELDS = " userid, name, password ";
+    final static String SELECT_FIELDS = INSERT_FIELDS + " defaddr ";
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
-            ") values(#{userid},#{password})"})
+            ") values(#{userid},#{name},#{password})"})
     int addUser(User user);
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where userId=#{userid}"})
