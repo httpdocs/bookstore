@@ -1,4 +1,4 @@
-package edu.scau.controller.admin;
+package edu.scau.controller;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import edu.scau.service.admin.CateService;
 
 @Controller
 @RequestMapping("/catemgr")
-public class CateController {
+public class CateManageController {
 
 	@Autowired
 	private CateService service;
@@ -26,6 +26,26 @@ public class CateController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("/add")
+	public void add(String isbn, String cate, HttpServletResponse response){
+		String json = service.add(isbn, cate);
+		try {
+			response.getWriter().println(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/delete")
+	public void delete(String isbn, String cate, HttpServletResponse response){
+		String json = service.delete(isbn, cate);
+		try {
+			response.getWriter().println(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	@RequestMapping("/list")

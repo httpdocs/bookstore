@@ -2,19 +2,32 @@ package edu.scau.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import edu.scau.model.CateHasBookExample;
 import edu.scau.model.CateHasBookKey;
 
+@Mapper
 public interface CateHasBookMapper {
+	
     int countByExample(CateHasBookExample example);
 
     int deleteByExample(CateHasBookExample example);
 
     int deleteByPrimaryKey(CateHasBookKey key);
 
-    int insert(CateHasBookKey record);
+    @Select({"select * from cate_has_book where isbn=#{isbn} and cate=#{cate}"})
+    CateHasBookKey select(String isbn, String cate);
+    
+    @Insert({"insert into cate_has_book values(#{cate}, #{isbn})"})
+    int insert(String isbn, String cate);
+    
+    @Delete({"delete from cate_has_book where isbn=#{isbn} and cate=#{cate}"})
+    int delete(String isbn, String cate);
 
     int insertSelective(CateHasBookKey record);
 
