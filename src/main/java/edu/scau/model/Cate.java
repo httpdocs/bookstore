@@ -20,4 +20,12 @@ public class Cate {
     public void setParent(String parent) {
         this.parent = parent == null ? null : parent.trim();
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	if(obj instanceof Cate){
+    		return cate.equals(((Cate) obj).getCate()) && parent.equals(((Cate) obj).getParent());
+    	}
+    	return false;
+    }
 }

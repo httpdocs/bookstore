@@ -2,12 +2,19 @@ package edu.scau.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import edu.scau.model.Cate;
 import edu.scau.model.CateExample;
 
+@Mapper
 public interface CateMapper {
+	
+	@Select({"select * from cate"})
+	List<Cate> list();
+	
     int countByExample(CateExample example);
 
     int deleteByExample(CateExample example);
