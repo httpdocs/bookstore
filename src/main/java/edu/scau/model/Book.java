@@ -22,7 +22,7 @@ public class Book {
 
     private Date time;
 
-    private Integer status;
+    private Integer status = 0;
 
     private Integer mainpic;
 

@@ -26,9 +26,9 @@ public class BookService {
 	public String add(Book book){
 		SqlSession session = DBSessionFactory.openSession();
 		BookMapper mapper = session.getMapper(BookMapper.class);
-		mapper.insert(book);
 		JSONObject json = new JSONObject();
 		try{
+			mapper.insert(book);
 			session.commit();
 			json.put(KEY[0], 0);
 			json.put(KEY[1], MSG[0]);

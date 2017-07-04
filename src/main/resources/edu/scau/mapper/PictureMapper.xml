@@ -102,7 +102,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="edu.scau.model.Picture" useGeneratedKeys="true" keyProperty="pictureId">
+    <insert id="insert" parameterType="edu.scau.model.Picture" useGeneratedKeys="true" keyProperty="pictureid" keyColumn="pictureId">
         insert into picture
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pictureid != null">
