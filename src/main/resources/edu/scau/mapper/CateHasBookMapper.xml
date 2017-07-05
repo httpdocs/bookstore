@@ -96,10 +96,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="edu.scau.model.CateHasBookKey">
-    insert into cate_has_book (cate, isbn)
-    values (#{cate,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR})
-  </insert>
+    
     <insert id="insertSelective" parameterType="edu.scau.model.CateHasBookKey">
         insert into cate_has_book
         <trim prefix="(" suffix=")" suffixOverrides=",">

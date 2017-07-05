@@ -1,4 +1,4 @@
-package edu.scau.controller.admin;
+package edu.scau.controller;
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,7 +17,7 @@ import edu.scau.service.admin.AdminService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminManageController {
 	
 	@Autowired
 	private AdminService service;

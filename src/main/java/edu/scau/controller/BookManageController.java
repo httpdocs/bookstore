@@ -1,4 +1,4 @@
-package edu.scau.controller.admin;
+package edu.scau.controller;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import edu.scau.service.admin.BookService;
 
 @Controller
 @RequestMapping("/bookmgr")
-public class BookController {
+public class BookManageController {
 	
 	@Autowired
 	private BookService bookService;

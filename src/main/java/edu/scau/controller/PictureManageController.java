@@ -1,4 +1,4 @@
-package edu.scau.controller.admin;
+package edu.scau.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,7 +19,7 @@ import edu.scau.model.Picture;
 import edu.scau.service.admin.PictureService;
 
 @Controller
-public class PictureController {
+public class PictureManageController {
 
 	@Autowired
 	private PictureService service;
