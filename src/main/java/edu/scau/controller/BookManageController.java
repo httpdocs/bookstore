@@ -10,7 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.scau.model.Book;
-import edu.scau.service.admin.BookService;
+import edu.scau.service.BookService;
+import edu.scau.util.JSONUtil;
 
 @Controller
 @RequestMapping("/bookmgr")
@@ -84,8 +85,10 @@ public class BookManageController {
 	}
  
 	@RequestMapping("/update")
-	public void update(Book book, HttpServletResponse response){
-		JSONObject json = bookService.update(book);
+	public void update(String param, HttpServletResponse response){
+		System.out.println(param);
+		JSONObject p = new JSONObject(param);
+		JSONObject json = bookService.update(JSONUtil.JSONToObjcet(p, Book.class));
 		try {
 			response.getWriter().println(json.toString());
 		} catch (IOException e) {

@@ -9,12 +9,12 @@ import org.json.JSONObject;
 
 public class JSONUtil {
 
-	public static <T> JSONArray listToArray(List<T> list, Class<T> cls){
+	public static <T> JSONArray listToArray(List<T> list, Class<T> cls) {
 		JSONArray array = new JSONArray();
 		Field[] fields = cls.getDeclaredFields();
-		for(T  t : list){
+		for (T t : list) {
 			JSONObject object = new JSONObject();
-			for(Field f : fields){
+			for (Field f : fields) {
 				try {
 					f.setAccessible(true);
 					object.put(f.getName(), f.get(t));
@@ -30,11 +30,11 @@ public class JSONUtil {
 		}
 		return array;
 	}
-	
-	public static <T> JSONObject objectToObject(Object obj, Class<T> cls){
+
+	public static <T> JSONObject objectToObject(Object obj, Class<T> cls) {
 		Field[] fields = cls.getDeclaredFields();
 		JSONObject json = new JSONObject();
-		for(Field f : fields){
+		for (Field f : fields) {
 			f.setAccessible(true);
 			try {
 				json.put(f.getName(), f.get(obj));
@@ -48,5 +48,21 @@ public class JSONUtil {
 		}
 		return json;
 	}
-	
+
+	public static <T> T JSONToObjcet(JSONObject json, Class<T> cls) {
+		Field[] fields = cls.getDeclaredFields();
+		T t = null;
+		try {
+			t = cls.newInstance();
+			for (Field f : fields) {
+				f.set(t, json.get(f.getName()));
+			}
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return t;
+	}
+
 }
