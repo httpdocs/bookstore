@@ -31,4 +31,22 @@ public class JSONUtil {
 		return array;
 	}
 	
+	public static <T> JSONObject objectToObject(Object obj, Class<T> cls){
+		Field[] fields = cls.getDeclaredFields();
+		JSONObject json = new JSONObject();
+		for(Field f : fields){
+			f.setAccessible(true);
+			try {
+				json.put(f.getName(), f.get(obj));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		return json;
+	}
+	
 }

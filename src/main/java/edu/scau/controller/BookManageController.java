@@ -66,8 +66,17 @@ public class BookManageController {
 
 	@RequestMapping("/delete")
 	public void delete(String isbn, HttpServletResponse response) {
-		System.out.println(isbn);
 		JSONObject json = bookService.delete(isbn);
+		try {
+			response.getWriter().println(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/get")
+	public void selectOne(String isbn, HttpServletResponse response){
+		JSONObject json = bookService.get(isbn);
 		try {
 			response.getWriter().println(json.toString());
 		} catch (IOException e) {

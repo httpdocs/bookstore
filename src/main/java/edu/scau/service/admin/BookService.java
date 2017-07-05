@@ -91,4 +91,10 @@ public class BookService {
 		return json;
 	}
 	
+	public JSONObject get(String isbn){
+		Book book = bookMapper.selectByPrimaryKey(isbn);
+		JSONObject json = JSONUtil.objectToObject(book, Book.class);
+		return json;
+	}
+	
 }
