@@ -57,7 +57,9 @@ img{
 .a_content:hover{
     text-decoration: none;
 }
-
+#footer{
+    margin-top: 30px;
+}
 
 
 

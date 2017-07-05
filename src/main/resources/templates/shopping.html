@@ -2,19 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>当当网购物车页面</title>
+    <title>Store网购物车页面</title>
     <link href="css/global.css" rel="stylesheet" type="text/css" />
     <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/template.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/shopping.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
 </head>
+<script>
+    function vertify() {
+        alert("购买成功");
+    }
+</script>
+<style>
+    .current_place a{
+        color: #0f0f0f;
+    }
+    .blue:hover{
+        text-decoration: none;
+    }
 
+</style>
 <body>
+
 <div id="header"><iframe src="header.html" height="155px" width="960px" frameborder="0"></iframe></div>
 <!--中间部分开始-->
 <div id="main">
-    <div>&nbsp;&nbsp;<img src="images/shopping_myshopping.gif" alt="shopping"/> <a href="#">全场免运费活动中</a></div>
-
+    <div class="current_place">您现在的位置：<a href="index.html">bookstore图书</a>&nbsp;&gt;&gt;&nbsp;购物车</div>
+    <div>&nbsp;&nbsp;<img src="images/shopping_myshopping.gif" alt="shopping"/></div>
     <div class="shopping_list_top">您已选购以下商品</div>
     <div class="shopping_list_border">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -22,32 +40,40 @@
                 <td class="shopping_list_title_1">商品名</td>
                 <td class="shopping_list_title_2">单品积分</td>
                 <td class="shopping_list_title_3">市场价</td>
-                <td class="shopping_list_title_4">当当价</td>
+                <td class="shopping_list_title_4">store价</td>
                 <td class="shopping_list_title_5">数量</td>
                 <td class="shopping_list_title_6">删除</td>
             </tr>
         </table>
-
         <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTableProduct">
             #foreach($vo in $vos)
             <tr class="shopping_product_list" id="$!{foreach.index}">
-                <td class="shopping_product_list_1"><a href="#" class="blue">${vo.book.title}</a></td>
+                <td class="shopping_product_list_1"><a href="#" class="blue">$!{vo.book.title}</a></td>
                 <td class="shopping_product_list_2"><label>250</label></td>
-                <td class="shopping_product_list_3">￥<label>${vo.book.price}</label></td>
-                <td class="shopping_product_list_4">￥<label>${vo.book.discount} </label>(59折)</td>
+                <td class="shopping_product_list_3">￥<label>$!{vo.book.price}</label></td>
+                <td class="shopping_product_list_4">￥<label>$!{vo.book.discount} </label>(59折)</td>
                 <td class="shopping_product_list_5"><input type="text" value="${vo.book.stock}"/></td>
                 <td class="shopping_product_list_6"><a href="javascript:void(0)" class="blue">删除</a></td>
             </tr>
             #end
-        </table>
+            <tr class="shopping_product_list" id="shoppingProduct_02">
+                <td class="shopping_product_list_1"><a href="#" class="blue"> 小团圆（张爱玲最神秘小说遗稿）</a></td>
+                <td class="shopping_product_list_2"><label>173</label></td>
+                <td class="shopping_product_list_3">￥<label>28.00</label></td>
+                <td class="shopping_product_list_4">￥<label>17.30</label>(62折)</td>
+                <td class="shopping_product_list_5"><input type="text" value="1"/></td>
+                <td class="shopping_product_list_6"><a href="javascript:void(0)" class="blue">删除</a></td>
+            </tr>
 
+
+        </table>
         <div class="shopping_list_end">
             <div><a id="removeAllProduct" href="javascript:void(0);">清空购物车</a></div>
             <ul>
-                <li class="shopping_list_end_1"><input name="" type="image" src="images/shopping_balance.gif"/></li>
-                <li class="shopping_list_end_2"><label id="product_total"></label></li>
-                <li class="shopping_list_end_3">商品金额总计：${vos.price}</li>
-                <li  class="shopping_list_end_4">您共节省金额：￥ ${vos.discount}<label class="shopping_list_end_yellow" id="product_save"></label><br/>
+                <li class="shopping_list_end_1"><input name="" type="image" src="images/shopping_balance.gif" data-toggle="modal" data-target="#myModal"/></li> <!--结算按钮-->
+                <li class="shopping_list_end_2">￥<label id="product_total"></label></li>
+                <li class="shopping_list_end_3">商品金额总计：$!{vos.price}</li>
+                <li  class="shopping_list_end_4">您共节省金额：￥ $!{vos.discount}<label class="shopping_list_end_yellow" id="product_save"></label><br/>
                     可获商品积分：<label class="shopping_list_end_yellow" id="product_integral"></label>
                 </li>
             </ul>
@@ -55,6 +81,43 @@
     </div>
 </div>
 
+<!-- 模态框Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">确定要购买吗</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>私募（首部披露资本博弈秘密的金融...&nbsp;&nbsp;</td>
+                        <td>单品价格：189&nbsp;&nbsp;</td>
+                        <td>&nbsp;数量：2</td>
+                    </tr>
+                    #foreach($vo in $vos)
+                    <tr>
+                        <td>私募（首部披露资本博弈秘密的金融...&nbsp;&nbsp;</td>
+                        <td>单品价格：189&nbsp;&nbsp;</td>
+                        <td>&nbsp;数量：2</td>
+                    </tr>
+                    #end
+                    <tr>
+                        <td>收件人：波风水门</td>
+                    </tr>
+                    <tr>
+                        <td>收件地址：华南农业大学华山区17栋</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="vertify()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--网站版权部分开始-->
 <div id="footer">
     <iframe src="footer.html" height="50px" width="900px" frameborder="0"></iframe></div>

@@ -1,40 +1,43 @@
-*{
-    padding: 0;
-    margin: 0;
+#divtest
+{
+    width: 282px;
 }
-.head{
-    background-color: #dddddd;
-    width: 100%;
-    position: relative;
-    height: 40px;
+#divtest .title
+{
+    padding: 8px;
+    background-color:Blue;
+    color:#fff;
+    height: 23px;
+    line-height: 23px;
+    font-size: 15px;
+    font-weight: bold;
 }
-.head li{
-    list-style: none;
-    width: 100px;
-    float: right;
-}
-.head li a{
-    text-decoration: none;
-    line-height: 40px;
-    text-align: center;
-}
-
-.head li a:hover{
-    color: red;
-}
-.left_head{
-    width: 25%;
+ul
+{
     float: left;
-    height: inherit;
+    width: 280px;
+    padding: 5px 0px;
+    margin: 0px;
+    font-size: 14px;
+    list-style-type: none;
 }
-.left_head label{
-    line-height: 40px;
-    text-align: center;
-    float: right;
-
+img
+{
+    margin: 8px;
 }
-.right_head{
+ul li
+{
+    float: left;
+    width: 280px;
+    height: 23px;
+    line-height: 23px;
+    padding: 3px 8px;
+}
+.fl
+{
+    float: left;
+}
+.fr
+{
     float: right;
-    width: 75%;
-    height: inherit;
 }
