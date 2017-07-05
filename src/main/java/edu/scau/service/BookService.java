@@ -1,4 +1,4 @@
-package edu.scau.service.admin;
+package edu.scau.service;
 
 import java.util.List;
 
@@ -83,6 +83,31 @@ public class BookService {
 		try{
 			bookMapper.deleteByPrimaryKey(isbn);
 			json.put("status", 0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.put("status", -1);
+			json.put("msg", "操作失败");
+		}
+		return json;
+	}
+	
+	/**
+	 * 获取一本书的信息
+	 * @param isbn
+	 * @return
+	 */
+	public JSONObject get(String isbn){
+		Book book = bookMapper.selectByPrimaryKey(isbn);
+		JSONObject json = JSONUtil.objectToObject(book, Book.class);
+		return json;
+	}
+	
+	public JSONObject update(Book book){
+		JSONObject json = new JSONObject();
+		try{
+			bookMapper.updateByPrimaryKeySelective(book);
+			json.put("status", 0);
+			json.put("msg", "操作成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			json.put("status", -1);

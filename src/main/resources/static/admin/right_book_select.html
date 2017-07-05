@@ -87,18 +87,18 @@ function loaded(){
 			contentType:'text/html;charset=utf-8',
 			success:function(data){
 				var json = JSON.parse(data);
-				alert(data);
+			    //	alert(data);
 				var list = document.getElementById("list");
 				list.innerHTML="";
 				for(i in json){
 					var row = "";
-					row += "<tr><td width=\"8%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].isbn+"</td>";
-					row += "<td width=\"13%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].title+"</td>";
-					row += "<td width=\"10%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].introduction+"</td>";
-					row += "<td width=\"12%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].author+"</td>";
-					row += "<td width=\"12%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].publish+"</td>";
-					row += "<td width=\"13%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].price+"</td>";
-					row += "<td width=\"14%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\"><input name=\"submit\" type=\"submit\" value=\"修改\" onclick=\"jumpUpdate()\" />|<input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne('"+json[i].isbn+"')\" /></td></tr>";
+					row += "<tr><td width=\"8%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].isbn+"</td>";
+					row += "<td width=\"13%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].title+"</td>";
+					row += "<td width=\"10%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].introduction+"</td>";
+					row += "<td width=\"12%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].author+"</td>";
+					row += "<td width=\"12%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].publish+"</td>";
+					row += "<td width=\"9%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].price+"</td>";
+					row += "<td width=\"14%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\"><input name=\"submit\" type=\"submit\" value=\"修改\" onclick=\"jumpUpdate("+json[i].isbn+")\" />|<input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne("+json[i].isbn+")\" /></td></tr>";
 					list.innerHTML+=row;
 				}
 			}
@@ -106,8 +106,8 @@ function loaded(){
 
 }
 
-function jumpUpdate(){
-	location.href="right_book_update.html";
+function jumpUpdate(isbn){
+	location.href="right_book_update.html?isbn="+isbn;
 }
 
 function deleteOne(isbn){

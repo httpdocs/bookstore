@@ -1,17 +1,18 @@
 package edu.scau.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import edu.scau.model.Book;
-import edu.scau.service.admin.BookService;
+import edu.scau.service.BookService;
+import edu.scau.util.JSONUtil;
 
 @Controller
 @RequestMapping("/bookmgr")
@@ -66,7 +67,6 @@ public class BookManageController {
 
 	@RequestMapping("/delete")
 	public void delete(String isbn, HttpServletResponse response) {
-		System.out.println(isbn);
 		JSONObject json = bookService.delete(isbn);
 		try {
 			response.getWriter().println(json.toString());
@@ -74,5 +74,32 @@ public class BookManageController {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@RequestMapping("/get")
+	public void selectOne(String isbn, HttpServletResponse response){
+		JSONObject json = bookService.get(isbn);
+		try {
+			response.getWriter().println(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+ 
+	@RequestMapping("/update")
+	public void update(String param, HttpServletResponse response){
+		System.out.println(param);
+		JSONObject p = new JSONObject(param);
+		Book book = new Book();
+		book.setIsbn(p.getString("isbn"));
+		book.setTitle(p.getString("title"));
+		book.setPublish(p.getString("publish"));
+		book.setIntroduction(p.getString("introduction"));
+		book.setPrice(p.getBigDecimal("price"));
+		JSONObject json = bookService.update(book);
+		try {
+			response.getWriter().println(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

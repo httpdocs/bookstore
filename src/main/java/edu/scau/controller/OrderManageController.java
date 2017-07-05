@@ -8,16 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import edu.scau.service.CateService;
+import edu.scau.service.OrderManageService;
 
 @Controller
-@RequestMapping("/cate")
-public class CateController {
+@RequestMapping("/ordermgr")
+public class OrderManageController {
 
 	@Autowired
-	private CateService service;
+	private OrderManageService service;
 	
-	@RequestMapping("/list")
 	public void list(HttpServletResponse response){
 		String json = service.list();
 		try {

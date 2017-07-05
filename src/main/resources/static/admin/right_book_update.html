@@ -31,6 +31,7 @@ body {
 }
 -->
 </style>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
 <script>
 var  highlightcolor='#d5f4fe';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
@@ -78,12 +79,71 @@ for(i=0;i<cs.length;i++){
 	cs[i].style.backgroundColor="";
 }
 }
-</script>
 
+//解析请求的参数，取得请求参数值
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
+//发送ajax请求给服务器，取得book的数据
+function updateBook(){
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/bookmgr/get?isbn='+GetQueryString("isbn"),
+		contentType:'text/html;charset=utf-8',
+		success:function(data){
+			//将json格式的字符串转换为json对象
+			var json = JSON.parse(data);
+			console.log(data);
+			document.getElementById("bookIsbn").value=json.isbn;
+			document.getElementById("bookTitle").value=json.title;
+			document.getElementById("bookIntroduction").value=json.introduction;
+			document.getElementById("bookAuthor").value=json.author;
+			document.getElementById("bookPublish").value=json.publish;
+			document.getElementById("bookPrice").value=json.price;
+		}
+	});	
+}
+
+
+ 
+//通过ajax发送更新操作
+function  update(){
+	
+	var json1 = JSON.parse("{}");
+	json1.isbn=document.getElementById("bookIsbn").value;
+	json1.title=document.getElementById("bookTitle").value;
+	json1.introduction=document.getElementById("bookIntroduction").value;
+	json1.author=document.getElementById("bookAuthor").value;
+	json1.publish=document.getElementById("bookPublish").value;
+	json1.price=document.getElementById("bookPrice").value;	
+	
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+	    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    	var json = JSON.parse(xmlhttp.responseText);
+	    	if(json.status == 0){
+	    		location.href="right_book_select.html";
+	    	} else {
+	    		alert(json.msg);
+	    	}
+	   }
+	}
+	xmlhttp.open("POST", "/bookmgr/update", false);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send("param="+JSON.stringify(json1));
+}
+
+</script>
 
 </head>
 
-<body bgcolor="#EEF2FB">
+<body bgcolor="#EEF2FB" onload="updateBook()">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -111,41 +171,36 @@ for(i=0;i<cs.length;i++){
 </form></td>
 </tr>
 </table>
+	<form id="myform">
    <table width="100%" border="0" cellpadding="2" cellspacing="1" >
 		  <tr>
 		<td width="11%" align="right">编号:</td>
-        <td width="46%" ><input type="text" name="id" width="200px"></td>
-		
+        <td width="46%" ><input type="text" name="isbn" width="200px" value="" id="bookIsbn" readonly="true"></td>		
         </tr>
 		<tr>
 		<td width="11%" align="right">书籍名称:</td>
-        <td width="46%" ><input type="text" name="name" width="200px"></td>
+        <td width="46%" ><input type="text" name="title" width="200px" id="bookTitle"></td>
         </tr>
 		<tr>
 		<td width="11%" align="right">书籍简介:</td>
-        <td width="46%" ><textarea name="introduct"></textarea></td>
+        <td width="46%" ><textarea name="introduction"  id="bookIntroduction"></textarea></td>
         </tr>
 		<tr>
 		<td width="11%" align="right">作者:</td>
-        <td width="46%" ><input type="text" name="id" width="200px"></td>
+        <td width="46%" ><input type="text" name="author" width="200px" id="bookAuthor"></td>
         </tr>
 		<tr>
 		<td width="11%" align="right">出版社:</td>
-        <td width="46%" ><input type="text" name="id" width="200px"></td>
-        </tr>
-		<tr>
-		<td width="11%" align="right">出版时间:</td>
-        <td width="46%" ><input type="text" name="id" width="200px"></td>
+        <td width="46%" ><input type="text" name="publish" width="200px" id="bookPublish"></td>
         </tr>
 		<tr>
 		<td width="11%" align="right">价格:</td>
-        <td width="46%" ><input type="text" name="id" width="200px"></td>
+        <td width="46%" ><input type="text" name="price" width="200px" id="bookPrice"></td>
         </tr>
-		<tr>
-		<td width="11%" align="right">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td width="46%" align="left" ><input type="submit" value="修&nbsp;&nbsp;改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重&nbsp;&nbsp;置"></td>
-        </tr>
+		
 		 </table>
+	</form>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="update()">修改</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  onclick="clearAll()">重置</button>
     </td>
   </tr>
   <tr>
