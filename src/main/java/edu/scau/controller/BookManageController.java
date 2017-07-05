@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -83,5 +82,14 @@ public class BookManageController {
 			e.printStackTrace();
 		}
 	}
-
+ 
+	@RequestMapping("/update")
+	public void update(Book book, HttpServletResponse response){
+		JSONObject json = bookService.update(book);
+		try {
+			response.getWriter().println(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
