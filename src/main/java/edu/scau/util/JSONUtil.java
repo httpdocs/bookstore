@@ -55,7 +55,14 @@ public class JSONUtil {
 		try {
 			t = cls.newInstance();
 			for (Field f : fields) {
-				f.set(t, json.get(f.getName()));
+				f.setAccessible(true);
+				Object obj = null;
+				try{
+					obj = json.get(f.getName());
+				} catch (Exception e) {
+					obj = null;
+				}
+				f.set(t, obj);
 			}
 		} catch (InstantiationException e) {
 			e.printStackTrace();

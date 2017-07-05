@@ -1,6 +1,7 @@
 package edu.scau.controller;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -88,7 +89,13 @@ public class BookManageController {
 	public void update(String param, HttpServletResponse response){
 		System.out.println(param);
 		JSONObject p = new JSONObject(param);
-		JSONObject json = bookService.update(JSONUtil.JSONToObjcet(p, Book.class));
+		Book book = new Book();
+		book.setIsbn(p.getString("isbn"));
+		book.setTitle(p.getString("title"));
+		book.setPublish(p.getString("publish"));
+		book.setIntroduction(p.getString("introduction"));
+		book.setPrice(p.getBigDecimal("price"));
+		JSONObject json = bookService.update(book);
 		try {
 			response.getWriter().println(json.toString());
 		} catch (IOException e) {

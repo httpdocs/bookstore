@@ -121,26 +121,25 @@ function  update(){
 	json1.publish=document.getElementById("bookPublish").value;
 	json1.price=document.getElementById("bookPrice").value;	
 	
-	$.ajax({
-	      url:"http://localhost:8080/bookmgr/update",
-	      type:"post",
-	      processData:false,
-	      data:json1,
-	      success:function(data){
-	          window.clearInterval(timer);
-	          console.log("over..");
-	      },
-	      error:function(e){
-	          alert("错误！！");
-	          window.clearInterval(timer);
-	      }
-	  });       
-	
-   
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+	    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+	    {
+	    	var json = JSON.parse(xmlhttp.responseText);
+	    	if(json.status == 0){
+	    		location.href="right_book_select.html";
+	    	} else {
+	    		alert(json.msg);
+	    	}
+	   }
+	}
+	xmlhttp.open("POST", "/bookmgr/update", false);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	xmlhttp.send("param="+JSON.stringify(json1));
 }
 
 </script>
-
 
 </head>
 
@@ -198,12 +197,10 @@ function  update(){
 		<td width="11%" align="right">价格:</td>
         <td width="46%" ><input type="text" name="price" width="200px" id="bookPrice"></td>
         </tr>
-		<tr>
-		<td width="11%" align="right">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td width="46%" align="left" ><input type="submit" value="修&nbsp;&nbsp;改" onclick="update()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重&nbsp;&nbsp;置"></td>
-        </tr>
+		
 		 </table>
 	</form>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onclick="update()">修改</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button  onclick="clearAll()">重置</button>
     </td>
   </tr>
   <tr>
