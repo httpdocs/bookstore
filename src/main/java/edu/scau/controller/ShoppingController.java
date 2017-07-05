@@ -1,9 +1,13 @@
 package edu.scau.controller;
 
+import edu.scau.model.Address;
 import edu.scau.model.Book;
+import edu.scau.model.User;
 import edu.scau.model.ViewObject;
+import edu.scau.service.AddressService;
 import edu.scau.service.CartService;
 import edu.scau.service.BooksService;
+import edu.scau.service.UserService;
 import edu.scau.service.admin.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +34,12 @@ public class ShoppingController {
     @Autowired
     PictureService pictureService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    AddressService addressService;
+
     private List<ViewObject> getBooksInCart(String id) {
         List<String> isbnList = cartService.getIsbns(id);
         List<ViewObject> vos = new ArrayList<>();
@@ -54,6 +64,20 @@ public class ShoppingController {
                 if ("ticket".equals(cookiename)) {
                     id = cookievalue;
                     model.addAttribute("vos", getBooksInCart(id));
+
+                    ViewObject vo_user = new ViewObject();
+                    User user = userService.getUser(id);
+                    Address address = addressService.getAddress(user.getDefaddr());
+                   System.out.println((user.getDefaddr()));
+                    System.out.println(address);
+                    vo_user.set("user", user);
+
+                    ViewObject vo_addr = new ViewObject();
+                    vo_addr.set("address", address);
+
+                    model.addAttribute("vo_user",vo_user);
+                    model.addAttribute("vo_addr",vo_addr);
+
                     return "shopping";
                 }
             }
