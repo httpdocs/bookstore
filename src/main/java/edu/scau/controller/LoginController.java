@@ -40,7 +40,8 @@ public class LoginController {
     @RequestMapping(path = {"/register.action"}, method = {RequestMethod.POST})
     public String reg(Model model,@RequestParam("userid") String userid,
                       @RequestParam("username") String username,
-                      @RequestParam("password") String password) {
+                      @RequestParam("password") String password,
+                      HttpServletResponse response) {
         //@RequestParam(value="rememberme", defaultValue = "false") boolean rememberme,
         // HttpServletResponse response
         try {
@@ -52,6 +53,10 @@ public class LoginController {
                 model.addAttribute("msg", map.get("msg"));
                 return "register";
             }
+            Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+            cookie.setPath("/");
+            cookie.setMaxAge(3600*24*7);
+            response.addCookie(cookie);
             return "redirect:/";
         } catch (Exception e) {
             logger.error("注册异常" + e.getMessage());
@@ -64,7 +69,8 @@ public class LoginController {
     //用户点击登录
     @RequestMapping(path = {"/login.action"}, method = {RequestMethod.POST})
     public String login(Model model,@RequestParam("userid") String userid,
-                        @RequestParam("password") String password) {
+                        @RequestParam("password") String password,
+                        HttpServletResponse response) {
         //@RequestParam(value = "rememberme", defaultValue = "false") boolean rememberme,
         //HttpServletResponse response
 
@@ -79,7 +85,11 @@ public class LoginController {
                 //System.out.println("if");
                 return "login";
             }
-            return "redirect:/";
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+                cookie.setPath("/");
+                cookie.setMaxAge(3600*24*7);
+                response.addCookie(cookie);
+                return "redirect:/";
         } catch (Exception e) {
             System.out.println("error");
             logger.error("登陆异常" + e.getMessage());
