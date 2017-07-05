@@ -342,7 +342,7 @@
 #product_storyList{
     border:solid 1px #a1a1a1;
     float:right;
-    width:770px;
+    width:960px;
     margin-bottom:20px;
 
 }
@@ -378,7 +378,9 @@
     border:#F04E23 1px solid;
 }
 .product_storyList_content{
-    margin:20px 10px 20px 10px;
+    width: 770px;
+    /*margin:20px 10px 20px 10px;*/
+    margin: 20px auto;
 }
 .product_storyList_content .big_img_list{
     width:25%;

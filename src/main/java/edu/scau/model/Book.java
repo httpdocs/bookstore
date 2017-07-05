@@ -8,19 +8,19 @@ public class Book {
 
     private String title;
 
-    private Integer stock;
+    private Integer stock = 0;
 
     private BigDecimal price;
 
-    private Integer discount;
+    private Integer discount = 100;
 
-    private Integer sold;
+    private Integer sold = 0;
 
     private String author;
 
     private String publish;
 
-    private Date time;
+    private Date time = new Date();
 
     private Integer status = 0;
 

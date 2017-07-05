@@ -213,5 +213,11 @@
   <library name="Maven: sslext:sslext:1.2-0">
     <archive path="C:/Users/Shoulder/.m2/repository/sslext/sslext/1.2-0/sslext-1.2-0.jar" />
   </library>
+  <library name="jdk8">
+    <archive path="E:/Java/jdk8/src.zip" />
+    <archive path="E:/Java/jdk8/jpcap.jar" />
+    <archive path="E:/Java/jdk8/javafx-src.zip" />
+    <archive path="E:/Java/jdk8/mysql-connector-java-5.1.38-bin.jar" />
+  </library>
 </eclipse-userlibraries>
 

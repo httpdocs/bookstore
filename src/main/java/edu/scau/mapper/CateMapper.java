@@ -14,7 +14,7 @@ public interface CateMapper {
 	
 	@Select({"select * from cate"})
 	List<Cate> list();
-	
+
     int countByExample(CateExample example);
 
     int deleteByExample(CateExample example);

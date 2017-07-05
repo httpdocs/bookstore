@@ -44,7 +44,7 @@ public class UserService {
         user.setPassword(BookstoreUtil.MD5(password));
         userMapper.addUser(user);
 
-        map.put("Result Of Register", "注册成功");
+        map.put("ticket", userid);
         return map;
     }
 
@@ -73,7 +73,7 @@ public class UserService {
             return map;
         }
 
-        map.put("Result Of Register", "注册成功");
+        map.put("ticket", "userid");
         return map;
     }
 
