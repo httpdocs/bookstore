@@ -108,7 +108,39 @@ function updateBook(){
 	});	
 }
 
+
+ 
+//通过ajax发送更新操作
+function  update(){
+	
+	var json1 = JSON.parse("{}");
+	json1.isbn=document.getElementById("bookIsbn").value;
+	json1.title=document.getElementById("bookTitle").value;
+	json1.introduction=document.getElementById("bookIntroduction").value;
+	json1.author=document.getElementById("bookAuthor").value;
+	json1.publish=document.getElementById("bookPublish").value;
+	json1.price=document.getElementById("bookPrice").value;	
+	
+	$.ajax({
+	      url:"http://localhost:8080/bookmgr/update",
+	      type:"post",
+	      processData:false,
+	      data:json1,
+	      success:function(data){
+	          window.clearInterval(timer);
+	          console.log("over..");
+	      },
+	      error:function(e){
+	          alert("错误！！");
+	          window.clearInterval(timer);
+	      }
+	  });       
+	
+   
+}
+
 </script>
+
 
 </head>
 
@@ -140,7 +172,7 @@ function updateBook(){
 </form></td>
 </tr>
 </table>
-	<form action="/bookmgr/update" method="post">
+	<form id="myform">
    <table width="100%" border="0" cellpadding="2" cellspacing="1" >
 		  <tr>
 		<td width="11%" align="right">编号:</td>
@@ -168,7 +200,7 @@ function updateBook(){
         </tr>
 		<tr>
 		<td width="11%" align="right">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td width="46%" align="left" ><input type="submit" value="修&nbsp;&nbsp;改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重&nbsp;&nbsp;置"></td>
+        <td width="46%" align="left" ><input type="submit" value="修&nbsp;&nbsp;改" onclick="update()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重&nbsp;&nbsp;置"></td>
         </tr>
 		 </table>
 	</form>
