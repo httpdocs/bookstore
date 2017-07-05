@@ -31,8 +31,4 @@ public class JSONUtil {
 		return array;
 	}
 	
-	public static void test(){
-		System.out.println(1);
-	}
-	
 }
