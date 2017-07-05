@@ -16,6 +16,7 @@ public class JSONUtil {
 			JSONObject object = new JSONObject();
 			for(Field f : fields){
 				try {
+					f.setAccessible(true);
 					object.put(f.getName(), f.get(t));
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -25,6 +26,7 @@ public class JSONUtil {
 					e.printStackTrace();
 				}
 			}
+			array.put(object);
 		}
 		return array;
 	}
