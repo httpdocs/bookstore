@@ -8,7 +8,6 @@ import edu.scau.service.AddressService;
 import edu.scau.service.CartService;
 import edu.scau.service.BooksService;
 import edu.scau.service.UserService;
-import edu.scau.service.admin.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +29,6 @@ public class ShoppingController {
 
     @Autowired
     BooksService booksService;
-
-    @Autowired
-    PictureService pictureService;
 
     @Autowired
     UserService userService;
