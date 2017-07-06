@@ -14,9 +14,9 @@ import edu.scau.model.OrderExample;
 
 @Mapper
 public interface OrderMapper {
-	
-	@Select({"select * from `order`"})
-	List<Order> selectAll();
+    //@Select({"select * ", " from ", "`order`" , " where userId=#{userid} order by orderid desc limit 0, 1 " })
+	Order selectLatestOrder(@Param("userid") String userId, @Param("offset") int offset,
+                            @Param("limit") int limit);
 	
 	OrderDetail getOrder(int orderId);
 	

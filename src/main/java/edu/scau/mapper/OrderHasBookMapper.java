@@ -2,13 +2,18 @@ package edu.scau.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import edu.scau.model.OrderHasBook;
 import edu.scau.model.OrderHasBookExample;
 import edu.scau.model.OrderHasBookKey;
-
+import org.apache.ibatis.annotations.Select;
+@Mapper
 public interface OrderHasBookMapper {
+    @Select({"select * ", " from ", " `order_has_book` " , " where orderId=#{orderid} "})
+    List<OrderHasBook> selectById(int orderid);
+
     int countByExample(OrderHasBookExample example);
 
     int deleteByExample(OrderHasBookExample example);

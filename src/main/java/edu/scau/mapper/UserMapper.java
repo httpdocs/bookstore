@@ -6,13 +6,14 @@ import edu.scau.model.User;
 
 @Mapper
 public interface UserMapper {
-    //娉ㄨВ鍐欐硶
+    //注解写法
 
-    //瀹忓畾涔�
+    //宏定义
     final static String TABLE_NAME = " user ";
     final static String INSERT_FIELDS = " userid, name, password ";
 
-    final static String SELECT_FIELDS = INSERT_FIELDS + ", defaddr ";
+    final static String SELECT_FIELDS = INSERT_FIELDS + " , defaddr ";
+
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
             ") values(#{userid},#{name},#{password})"})
@@ -30,10 +31,9 @@ public interface UserMapper {
     @Delete({"delete from ", TABLE_NAME, " where userId=#{userId}"})
     void deleteById(String userId);
 
-    int updateByPrimaryKeySelective(User record);
 
 
-/*  鎺ュ彛绀轰緥
+/*  接口示例
     int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
@@ -52,7 +52,7 @@ public interface UserMapper {
 
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 
- 
+    int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
 */
