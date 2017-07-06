@@ -82,7 +82,6 @@ function ban() {
 $("#province").ready(function () {
     var $this = $(this);
 
-<<<<<<< HEAD
     $.getJSON("/getJson",function(data){
         $this.attr("disabled", "true");
         $("#receiver_name").val(data.name);
@@ -96,27 +95,6 @@ $("#province").ready(function () {
 
     }, "json");
 
-
-    
-=======
-    $.getJSON("test.json",function(data){
-        $this.attr("disabled", "true");
-        $("#user_name").val(data.name);
-        $("#user_tel").val(data.tel);
-        $("#post_code").val(data.postcode);
-        var line = data.addr;
-        var strs = new Array();
-        strs = line.split(",");
-        $("#province_op").html(strs[0]);
-        $("#city_op").html(strs[1]);
-
-    }, "json");
-
-
-    $.ajax(
-        "",{}
-    )
->>>>>>> branch 'master' of https://git.oschina.net/yszhong95/SSM_Bookstore.git
 })
 
 

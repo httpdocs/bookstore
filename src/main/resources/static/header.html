@@ -7,7 +7,15 @@
     <link href="css/template.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/header.js"></script>
+    <script>
+    	function search() {
+			var key = document.getElementById("header_search").value;
+			top.location.href="/index.html?key="+key;
+		}
+    </script>
 </head>
+
+
 <body>
 
 <!--顶部开始-->
@@ -20,13 +28,8 @@
         <ul>
             <li id="menu"><a href="#" target="_self">我的bookstore</a> <img src="images/dd_arrow_down.gif" alt="arrow" />
                 <div id="dd_menu_top_down">
-<<<<<<< HEAD
-                    <a href="/shopping" target="_parent">我的订单</a><br />
-                    <a href="/UICchecked" target="_parent">用户详情</a><br />
-=======
                     <a href="shopping.html" target="_parent">我的订单</a><br />
                     <a href="user_detail.html" target="_parent">用户详情</a><br />
->>>>>>> branch 'master' of https://git.oschina.net/yszhong95/SSM_Bookstore.git
                     <a href="#" onclick="exit_show()">退出登录</a>
                 </div>
             </li>
@@ -65,8 +68,8 @@
     <div class="header_serach_left"></div>
     <div class="header_serach_mid">
         <ul id="header_serach_mid_menu">
-            <li><input id="header_serach" type="text" class="header_input_search" /></li>
-            <li><input type="image" class="header_secrch_btn" src="images/dd_header_search_btn.jpg" /></li>
+            <li><input id="header_search" type="text" class="header_input_search" /></li>
+            <li><input type="image" class="header_secrch_btn" src="images/dd_header_search_btn.jpg" onclick="search()"/></li>
         </ul>
     </div>
     <div class="header_serach_right"></div>

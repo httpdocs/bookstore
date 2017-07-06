@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.scau.mapper.DeliveryMapper;
+import edu.scau.model.Delivery;
 import edu.scau.service.OrderManageService;
 
 @Controller
@@ -38,6 +40,16 @@ public class OrderManageController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@RequestMapping("/deliver")
+	public void delivery(int orderId, Delivery delivery, HttpServletResponse response){
+		String json = service.deliver(orderId, delivery);
+		try {
+			response.getWriter().println(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
