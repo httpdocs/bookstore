@@ -73,10 +73,7 @@ $("#ok_btn").mouseover(function(){
 //点击了修改按钮之后，禁用掉输入框
 function ban() {
     // $("#receiver_nickname").val("11111111111");
-    $("#receiver_nickname").removeAttr("disabled");
-    $("#receiver_hobby").removeAttr("disabled");
-    $("#man").removeAttr("disabled");
-    $("#woman").removeAttr("disabled");
+ 
     $("#receiver_name").removeAttr("disabled");
     $("#receiver_phone").removeAttr("disabled");
     $("#receiver_post").removeAttr("disabled");

@@ -17,12 +17,16 @@ public class UserInformationService {
 	   @Autowired
 	   UserMapper userMapper;
 	   
+	   User user=null;
+	   
 	   private User getUser(String userid){
 		   return userMapper.selectById(userid);
 	   }
 	   
 	   private Address search(String userid,Address newAddress){
-		   Integer addressId=getUser(userid).getDefaddr();
+		   newAddress.setUserid(userid);
+		   user=getUser(userid);
+		   Integer addressId=user.getDefaddr();
 		   if(addressId!=null){
 			   newAddress.setAddressid(addressId);
 			   System.out.println("search查出的addressId："+addressId);
@@ -34,13 +38,15 @@ public class UserInformationService {
 	   }
 	   
 	   public Address add(Address newAddress,String userid) throws Exception{
+		   System.out.println("Address add方法中");
 		   Address address=search(userid, newAddress);
 		   if(address.getAddressid()!=null){
-			   System.out.println("addressId已存在，请调用update操作");
-			   throw new Exception("addressId已存在，请调用update操作");
+			   update(newAddress, userid);
 		   }else{
+			   
 			   addressMapper.insert(address);
-			   System.out.println("address插入成功");
+			   user.setDefaddr(address.getAddressid());
+			   System.out.println("address插入成功,addressId："+address.getAddressid());
 		   }
 		return address;
 	   }

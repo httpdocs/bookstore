@@ -14,7 +14,7 @@ public interface UserMapper {
     //宏定义
     final static String TABLE_NAME = " user ";
     final static String INSERT_FIELDS = " userid, name, password ";
-    final static String SELECT_FIELDS = INSERT_FIELDS + " defaddr ";
+    final static String SELECT_FIELDS = INSERT_FIELDS + " , defaddr ";
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
             ") values(#{userid},#{name},#{password})"})

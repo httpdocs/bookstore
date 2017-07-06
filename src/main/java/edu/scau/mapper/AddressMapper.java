@@ -2,11 +2,13 @@ package edu.scau.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import edu.scau.model.Address;
 import edu.scau.model.AddressExample;
 
+@Mapper
 public interface AddressMapper {
     int countByExample(AddressExample example);
 
