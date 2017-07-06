@@ -52,4 +52,9 @@ public class OrderManageController {
 		}
 	}
 	
+	@RequestMapping("/get")
+	public void getOrder(int orderId, HttpServletResponse response){
+		
+	}
+	
 }

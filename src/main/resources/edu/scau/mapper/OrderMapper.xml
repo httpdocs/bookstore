@@ -257,4 +257,21 @@
       remark = #{remark,jdbcType=VARCHAR}
     where orderId = #{orderid,jdbcType=INTEGER}
   </update>
+  
+  <select id="getOrder" parameterType="int" resultMap="ClassResultMap4">
+        select * from `order`,address where `order`.orderId=address.orderId and orderId=#{orderId}
+</select>
+  <resultMap type="edu.scau.mapper.view.OrderDetail" id="ClassResultMap4">
+         <id property="orderId" column="orderId"/>
+         <result property="name" column="name"/>
+         <result property="tel" column="tel"/>
+         <result property="address" column="detail"/>
+         <result property="total" column="total"/>
+         <result property="userId" column="userId"/>
+         <collection property="list" ofType="edu.scau.model.OrderHasBook" column="orderId" select="getList"></collection>
+</resultMap>
+  <select id="getList" parameterType="int" resultType="edu.scau.model.OrderHasBook">
+         select * from book 
+</select>
+  
 </mapper>

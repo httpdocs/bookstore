@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import edu.scau.mapper.DeliveryMapper;
 import edu.scau.mapper.OrderMapper;
+import edu.scau.mapper.view.OrderDetail;
 import edu.scau.model.Delivery;
 import edu.scau.model.Order;
 import edu.scau.util.JSONUtil;
@@ -32,7 +33,11 @@ public class OrderManageService {
 		return array.toString();
 	}
 	
-	
+	/**
+	 * 删除
+	 * @param orderid
+	 * @return
+	 */
 	public JSONObject delete(String orderid){
 		JSONObject json = new JSONObject();
 		try {
@@ -46,6 +51,12 @@ public class OrderManageService {
 		return json;
 	}
 	
+	/**
+	 * 发货
+	 * @param orderId
+	 * @param delivery
+	 * @return
+	 */
 	public String deliver(int orderId, Delivery delivery){
 		JSONObject json = new JSONObject();
 		try{
