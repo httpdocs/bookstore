@@ -58,4 +58,14 @@ public class CateManageController {
 		}
 	}
 	
+	@RequestMapping("/destroy")
+	public void destroy(String cate, HttpServletResponse response){
+		String json = service.destroy(cate);
+		try {
+			response.getWriter().println(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
