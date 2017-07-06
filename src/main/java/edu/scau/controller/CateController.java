@@ -17,6 +17,13 @@ public class CateController {
 	@Autowired
 	private CateService service;
 	
+	/**
+	 * 获取分类树
+	 * 
+	 * [ { "parent":"一级分类名", "children":["二级分类1","二级分类2",...] }, ... ]
+	 * 
+	 * @param response
+	 */
 	@RequestMapping("/list")
 	public void list(HttpServletResponse response){
 		String json = service.list();

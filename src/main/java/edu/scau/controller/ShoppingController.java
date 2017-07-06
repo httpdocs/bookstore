@@ -4,7 +4,10 @@ import edu.scau.model.Address;
 import edu.scau.model.Book;
 import edu.scau.model.User;
 import edu.scau.model.ViewObject;
-import edu.scau.service.*;
+import edu.scau.service.AddressService;
+import edu.scau.service.CartService;
+import edu.scau.service.BooksService;
+import edu.scau.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,9 +29,6 @@ public class ShoppingController {
 
     @Autowired
     BooksService booksService;
-
-    @Autowired
-    PictureService pictureService;
 
     @Autowired
     UserService userService;
