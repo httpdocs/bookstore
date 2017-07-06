@@ -22,8 +22,8 @@ public class BookManageController {
 	private BookService bookService;
 
 	@RequestMapping("/add")
-	public void add(Book book, HttpServletResponse response) {
-		String json = bookService.add(book);
+	public void add(Book book, String cate, HttpServletResponse response) {
+		String json = bookService.add(book, cate);
 		JSONObject j = new JSONObject(json);
 		try {
 			if (j.getInt("status") == 0) {
