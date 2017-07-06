@@ -1,19 +1,4 @@
-function show(e) {
-    var objID = e.id;
-    if(objID == 'personal'){
-        var s = document.getElementById('div_personal');
-        s.style.display="block";
-        var s2 = document.getElementById('div_address');
-        s2.style.display='none';
 
-    }else if (objID == 'address')
-    {
-        var s = document.getElementById('div_personal');
-        s.style.display="none";
-        var s2 = document.getElementById('div_address');
-        s2.style.display='block';
-    }
-}
 $(function(){
     //省市级联
     var cityList = new Array();
@@ -78,10 +63,10 @@ function ban() {
     $("#receiver_post").removeAttr("disabled");
     $("#city").removeAttr("disabled");
     $("#province").removeAttr("disabled");
+    $("#registerBtn").removeAttr("disabled");
 }
 $("#province").ready(function () {
     var $this = $(this);
-
     $.getJSON("/getJson",function(data){
         $this.attr("disabled", "true");
         $("#receiver_name").val(data.name);
@@ -94,7 +79,6 @@ $("#province").ready(function () {
         $("#city_op").html(strs[1]);
 
     }, "json");
-
 })
 
 

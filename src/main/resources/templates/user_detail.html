@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+﻿
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,13 +25,13 @@
         <div class="user_content_left_content2">
             <ul>
                 <!--<li><a href="#" onclick="show(this)" id="personal">个人信息</a></li>-->
-                <li><a href="#" onclick="show(this)" id="address">收货地址</a></li>
+                <li><a href="#"  id="address">收货地址</a></li>
             </ul>
         </div>
     </div>
     <!--user_content_left结束-->
     <div class="user_content_right">
-        <form action="/UICadd" method="post" id="form">
+        <form action="/UICadd" method="post" id="form" >
         <div id="div_address" style="display: block">
             <div class="div_table">
                     <table>
@@ -67,80 +67,8 @@
                     </table>
             </div>
         </div>
-        <div class="ok_btn"><input id="registerBtn" type="image" src="images/ok_btn2.jpg"/><label id="test" >$!{UICresult}</label></div>
+        <div class="ok_btn"><input id="registerBtn" type="image" disabled="true" src="images/ok_btn2.jpg"/><label id="test" >$!{UICresult}</label></div>
         </form>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>用户详情页</title>
-    <link href="css/global.css" type="text/css" rel="stylesheet">
-    <link href="css/layout.css" type="text/css" rel="stylesheet">
-    <link href="css/template.css" type="text/css" rel="stylesheet">
-    <link href="css/user_detail.css" type="text/css" rel="stylesheet">
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/user_detail.js"></script>
-
-</head>
-<body>
-<div id="header">
-    <iframe src="header.html" height="155px" width="960px" frameborder="0"></iframe>
-</div>
-<div class="user_content">
-    <div class="current_place">您现在的位置：<a href="index.html">bookstore图书</a>&nbsp;&gt;&gt;&nbsp;用户详情</div>
-    <div class="user_content_left">
-        <div class="user_content_left_content">
-            <div>我的bookstore</div>
-        </div>
-        <div class="user_content_left_content2">
-            <ul>
-                <!--<li><a href="#" onclick="show(this)" id="personal">个人信息</a></li>-->
-                <li><a href="#" onclick="show(this)" id="address">收货地址</a></li>
-            </ul>
-        </div>
-    </div>
-    <!--user_content_left结束-->
-    <div class="user_content_right">
-        <form action="" method="get" id="form">
-        <div id="div_address" style="display: block">
-            <div class="div_table">
-                    <table>
-                        <tr>
-                            <td><label class="info2">姓名(必填)：</label></td>
-                            <td><input id="user_name" type="text" id="receiver_name" disabled="ture" name="receiver_name" class="len_edit"></td>
-                            <td><label class="info">填写收件人的姓名</label></td>
-                        </tr>
-                        <tr>
-                            <td><label class="info2">电话(必填)：</label></td>
-                            <td><input id="user_tel" type="text" id="receiver_phone" disabled="ture" name="receiver_name" class="len_edit"></td>
-                            <td><label class="info">填写收件人的手机号</label></td>
-                        </tr>
-                        <tr>
-                            <td><label class="info2">收件地址(必填)：</label></td>
-                            <td>
-                                <select id="province" style="width:120px;" disabled="ture" name="receiver_province" class="len_edit">
-                                <option id="province_op">请选择省/城市</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="city"  style="width:130px;" name="receiver_city" disabled="ture">
-                                    <option id="city_op">请选择城市/地区</option>
-                                </select>
-                            </td>
-                            <td><label class="info">填写收件人的收货地址</label></td>
-                        </tr>
-                        <tr>
-                            <td><label class="info2">邮编：</label></td>
-                            <td><input id="post_code" type="text" id="receiver_post" disabled="ture" name="receiver_post" class="len_edit"></td>
-                            <td><label class="info">填写收件人的地址邮编</label></td>
-                        </tr>
-                    </table>
-            </div>
-        </div>
-        </form>
-        <div class="ok_btn"><input id="registerBtn" type="image" src="images/ok_btn2.jpg"/><label id="test" >测试</label></div>
->>>>>>> branch 'master' of https://git.oschina.net/yszhong95/SSM_Bookstore.git
         <div class="edit_btn"><input id="editBtn" type="image" src="images/edit_btn.jpg" onclick="ban()"></div>
     </div>
     <!--user_content_right结束-->

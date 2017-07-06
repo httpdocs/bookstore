@@ -26,7 +26,7 @@ public class UserInformationController {
       UserInformationService userInformationService;
 	  
 	  JSONObject json;
-	  private String userid=null;
+	  private static String userid=null;
 	  
 	  @RequestMapping("/UICadd")
 	  public String UICadd(Model model,HttpServletRequest rq,HttpServletResponse req,Address newAddress) throws Exception{
@@ -45,27 +45,12 @@ public class UserInformationController {
 	  }
 	  
 	  
-	  @RequestMapping(path = {"/UICchecked"}, method = {RequestMethod.GET})
-	    public String checked(HttpServletRequest request) {
-
-	        String id = null;
-	        Cookie[] cookies = request.getCookies();
-	        if (cookies != null) {
-	            for (Cookie cookie : cookies) {
-	                String cookiename = cookie.getName();
-	                String cookievalue = cookie.getValue();
-	                if ("ticket".equals(cookiename)) {
-	                    id = cookievalue;
-	                    userid=id;
-	                    System.out.println("userid为："+userid+" id为："+id);
-	                    json=changeToJson(userInformationService.getAddress(userid));
-	                    return "user_detail";
-	                }
-	            }
-	        }
-	        if(id == null)
-	        	System.out.println("请先登录");
-	            return "login";
+	  @RequestMapping(path = {"/UICini"}, method = {RequestMethod.GET})
+	    public String ini(HttpServletRequest request) {
+		  
+            	 json=changeToJson(userInformationService.getAddress(userid));
+                 return "user_detail";
+       
 	    }
 	  
 	  
@@ -81,17 +66,22 @@ public class UserInformationController {
 	  }
 	  
 	  
-	  @RequestMapping("/test")
-	  public String test(Model model,HttpServletRequest request,Address newAddress){
-		  System.out.println("执行到这里了："+newAddress.getDetail());
-		  return "user_detail";
-	  }
 	  
 	  private JSONObject changeToJson(Address address){
-		  JSONObject myJsonObject=JSONUtil.objectToObject(address,Address.class);
+		  JSONObject myJsonObject=null;
+		  if(address!=null){
+			  myJsonObject = JSONUtil.objectToObject(address,Address.class);
+			  
+		  }
 		  return myJsonObject;
 	  }
 	  
+	 public static void setUserid(String newUserid){
+		 userid=newUserid;
+	 }
 	 
+	 public static String getUserid(){
+		 return userid;
+	 }
 }
 
