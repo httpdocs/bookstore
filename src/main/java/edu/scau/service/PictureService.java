@@ -1,4 +1,4 @@
-package edu.scau.service.admin;
+package edu.scau.service;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

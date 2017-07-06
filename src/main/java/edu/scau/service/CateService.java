@@ -1,4 +1,4 @@
-package edu.scau.service.admin;
+package edu.scau.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;

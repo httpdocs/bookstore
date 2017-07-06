@@ -50,22 +50,16 @@
             <tr class="shopping_product_list" id="$!{foreach.index}">
                 <td class="shopping_product_list_1"><a href="#" class="blue">$!{vo.book.title}</a></td>
                 <td class="shopping_product_list_2"><label>250</label></td>
-                <td class="shopping_product_list_3">￥<label>$!{vo.book.price}</label></td>
-                <td class="shopping_product_list_4">￥<label>$!{vo.book.discount} </label>(59折)</td>
-                <td class="shopping_product_list_5"><input type="text" value="${vo.book.stock}"/></td>
-                <td class="shopping_product_list_6"><a href="javascript:void(0)" class="blue">删除</a></td>
-            </tr>
-            #end
-            <tr class="shopping_product_list" id="shoppingProduct_02">
-                <td class="shopping_product_list_1"><a href="#" class="blue"> 小团圆（张爱玲最神秘小说遗稿）</a></td>
-                <td class="shopping_product_list_2"><label>173</label></td>
-                <td class="shopping_product_list_3">￥<label>28.00</label></td>
-                <td class="shopping_product_list_4">￥<label>17.30</label>(62折)</td>
+                #set($price=$vo.book.price / $vo.book.discount * 10 )
+               <td class="shopping_product_list_3">￥<label>$price</label></td>
+                <td class="shopping_product_list_4">￥<label>$!{vo.book.price} </label>($!{vo.book.discount}折)</td>
                 <td class="shopping_product_list_5"><input type="text" value="1"/></td>
                 <td class="shopping_product_list_6"><a href="javascript:void(0)" class="blue">删除</a></td>
             </tr>
-
             #end
+
+
+
         </table>
         <div class="shopping_list_end">
             <div><a id="removeAllProduct" href="javascript:void(0);">清空购物车</a></div>
@@ -91,23 +85,18 @@
             </div>
             <div class="modal-body">
                 <table>
-                    <tr>
-                        <td>私募（首部披露资本博弈秘密的金融...&nbsp;&nbsp;</td>
-                        <td>单品价格：189&nbsp;&nbsp;</td>
-                        <td>&nbsp;数量：2</td>
-                    </tr>
                     #foreach($vo in $vos)
                     <tr>
-                        <td>私募（首部披露资本博弈秘密的金融...&nbsp;&nbsp;</td>
-                        <td>单品价格：189&nbsp;&nbsp;</td>
-                        <td>&nbsp;数量：2</td>
+                        <td> $!{vo.book.title}&nbsp;&nbsp;</td>
+                        <td>单品价格：$!{vo.book.price}&nbsp;&nbsp;</td>
+                        <td>&nbsp;数量：1</td>
                     </tr>
                     #end
                     <tr>
-                        <td>收件人：波风水门</td>
+                        <td>收件人：$!{vo_user.user.name}</td>
                     </tr>
                     <tr>
-                        <td>收件地址：华南农业大学华山区17栋</td>
+                        <td>收件地址：$!{vo_addr.address.detail}</td>
                     </tr>
                 </table>
             </div>

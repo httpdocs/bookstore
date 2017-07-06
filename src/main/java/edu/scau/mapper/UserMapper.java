@@ -1,11 +1,8 @@
 package edu.scau.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.*;
 
 import edu.scau.model.User;
-import edu.scau.model.UserExample;
 
 @Mapper
 public interface UserMapper {
@@ -14,14 +11,18 @@ public interface UserMapper {
     //宏定义
     final static String TABLE_NAME = " user ";
     final static String INSERT_FIELDS = " userid, name, password ";
+<<<<<<< HEAD
     final static String SELECT_FIELDS = INSERT_FIELDS + " , defaddr ";
+=======
+    final static String SELECT_FIELDS = INSERT_FIELDS + ", defaddr ";
+>>>>>>> refs/remotes/origin/master
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
             ") values(#{userid},#{name},#{password})"})
     int addUser(User user);
 
     @Select({"select ", SELECT_FIELDS, " from ", TABLE_NAME, " where userId=#{userid}"})
-    User selectById(String userId);
+    User selectById(String userid);
 
 //    @Select({"select ", INSERT_FIELDS, " from ", TABLE_NAME, " where name=#{username}"})
 //    User selectByName(String name);

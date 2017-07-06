@@ -15,7 +15,7 @@ public class CartService {
 private CartMapper cartMapper;
 
     public List<String> getIsbns(String id){
-        System.out.println("enter cartService method");
+
         return cartMapper.getIsbns(id);
     }
 }

@@ -8,23 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import edu.scau.service.CateService;
+import edu.scau.service.OrderManageService;
 
 @Controller
-@RequestMapping("/cate")
-public class CateController {
+@RequestMapping("/ordermgr")
+public class OrderManageController {
 
 	@Autowired
-	private CateService service;
+	private OrderManageService service;
 	
-	/**
-	 * 获取分类树
-	 * 
-	 * [ { "parent":"一级分类名", "children":["二级分类1","二级分类2",...] }, ... ]
-	 * 
-	 * @param response
-	 */
-	@RequestMapping("/list")
 	public void list(HttpServletResponse response){
 		String json = service.list();
 		try {

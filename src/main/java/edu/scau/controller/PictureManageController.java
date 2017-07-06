@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.scau.model.Picture;
-import edu.scau.service.admin.PictureService;
+import edu.scau.service.PictureService;
 
 @Controller
 public class PictureManageController {
