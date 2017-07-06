@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ public class OrderManageController {
 	@Autowired
 	private OrderManageService service;
 	
+	@RequestMapping("/list")
 	public void list(HttpServletResponse response){
 		String json = service.list();
 		try {
@@ -24,6 +26,18 @@ public class OrderManageController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("/detele")
+	public void delete(String orderid,HttpServletResponse response){
+		JSONObject json=service.delete(orderid);
+		System.out.println(json.toString());
+		try {
+			response.getWriter().println(json.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
