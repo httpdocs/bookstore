@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding:0;
+}
+.success_top{
+    padding-top: 100px;
+    width: 1050px;
+    height: 200px;
+    margin: 0 auto;
+}
+.shopper{
+    width: 350px;
+    height: 20px;
+    margin: 0 auto;
+}
+.shopper_name,.shopper .one{
+    float: left;
+}
+.success_right{
+    padding-top: 5px;
+    width: 100%;
+    text-align: center;
+}
+.success_right div{
+    float: left;
+}
+.success_right ul{
+    padding-left: 20px;
+}
+.success_right li{
+    list-style: none;
+}
+.success_container{
+    width: 100%;
+}
+.success_img{
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+.success_img a{
+    color: blue;
+    text-decoration: none;
+}
+.state{
+    font-size: 20px;
+    color: red;
+}
+.shopper_name{
+    font-size: 20px;
+    color: red;
+}

@@ -64,8 +64,6 @@ public class ShoppingController {
                     ViewObject vo_user = new ViewObject();
                     User user = userService.getUser(id);
                     Address address = addressService.getAddress(user.getDefaddr());
-                   System.out.println((user.getDefaddr()));
-                    System.out.println(address);
                     vo_user.set("user", user);
 
                     ViewObject vo_addr = new ViewObject();
