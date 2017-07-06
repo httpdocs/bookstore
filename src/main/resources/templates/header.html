@@ -9,19 +9,24 @@
     <script type="text/javascript" src="js/header.js"></script>
 </head>
 <body>
+
 <!--顶部开始-->
 <div class="header_top">
-    <div class="header_top_left">您好！欢迎光临bookstore [<a href="login.html" target="_parent">登录</a> | <a href="register.html" target="_parent">免费注册</a>]</div>
+    <div class="header_top_left">您好！欢迎光临bookstore [
+        <a href="login.html" target="_parent" style="display: inline-block" id="login_register">登录</a> | <a href="register.html" style="display: inline-block" target="_parent" id="login_register2">免费注册</a>
+        <a href="user_detail.html" id="login_name" style="display: none"><span style="color: red">波风水门</span>&nbsp;|&nbsp;</a>]
+    </div>
     <div class="header_top_right">
         <ul>
             <li id="menu"><a href="#" target="_self">我的bookstore</a> <img src="images/dd_arrow_down.gif" alt="arrow" />
                 <div id="dd_menu_top_down">
-                    <a href="/shopping" target="_parent">我的订单</a><br />
-                    <a href="/UICchecked" target="_parent">用户详情</a><br />
+                    <a href="shopping.html" target="_parent">我的订单</a><br />
+                    <a href="user_detail.html" target="_parent">用户详情</a><br />
+                    <a href="#" onclick="exit_show()">退出登录</a>
                 </div>
             </li>
             <li>|</li>
-            <li><a href="/shopping" target="_parent">购物车</a></li>
+            <li><a href="shopping.html" target="_parent">购物车</a></li>
             <li><img src="images/dd_header_shop.gif" alt="shopping"/></li>
         </ul>
     </div>

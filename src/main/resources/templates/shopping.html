@@ -50,7 +50,7 @@
             <tr class="shopping_product_list" id="$!{foreach.index}">
                 <td class="shopping_product_list_1"><a href="#" class="blue">$!{vo.book.title}</a></td>
                 <td class="shopping_product_list_2"><label>250</label></td>
-                #set($price=$vo.book.price / $vo.book.discount * 10 )
+                #set($price=$vo.book.price * $vo.book.discount /100 )
                <td class="shopping_product_list_3">￥<label>$price</label></td>
                 <td class="shopping_product_list_4">￥<label>$!{vo.book.price} </label>($!{vo.book.discount}折)</td>
                 <td class="shopping_product_list_5"><input type="text" value="1"/></td>

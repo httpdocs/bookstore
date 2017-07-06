@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情</title>
+    <link href="css/global.css" rel="stylesheet" type="text/css" />
+    <link href="css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="css/template.css" rel="stylesheet" type="text/css"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<script>
+    function back() {
+//        alert("这就看完了？那就回去咯")
+        window.location.href="index.html";
+    }
+</script>
+<style>
+    .order_top{
+        margin-top: 20px;
+        width: 960px;
+        margin: 0 auto;
+        height: 40px;
+    }
+    .order_div{
+        width: 300px;
+        height: 40px;
+        margin-left: 30px;
+    }
+    .shopping_list_border{
+        width: 960px;
+        margin: 0 auto;
+    }
+    #myTableProduct{
+        table-layout: fixed;
+    }
+    .shopping_list_title_1{
+        width: 300px;
+    }
+</style>
+<body>
+<div id="header"><iframe src="header.html" height="155px" width="960px" frameborder="0"></iframe></div>
+<div class="order_top">
+    <div class="order_div"><span>尊敬的：</span><span id="order_username" style="color: red;font-size: 20px">波风水门</span><span>&nbsp;&nbsp;&nbsp;这是您的订单</span></div>
+</div>
+<div class="shopping_list_border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="shopping_list_title">
+            <td class="shopping_list_title_2">订单编号</td>
+            <td class="shopping_list_title_1">书本名</td>
+            <td class="shopping_list_title_3">价格</td>
+            <td class="shopping_list_title_4">收货地址</td>
+            <td class="shopping_list_title_5">数量</td>
+            <td class="shopping_list_title_6">状态</td>
+        </tr>
+    </table>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" id="myTableProduct">
+        <tr class="shopping_product_list" id="shoppingProduct_01">
+            <td class="shopping_product_list_2"><label>1</label></td>
+            <td class="shopping_product_list_1"><a href="#" class="blue">私募（首部披露资本博弈秘密的金融...</a></td>
+            <td class="shopping_product_list_3">￥<label>32.00</label></td>
+            <td class="shopping_product_list_4"><label>华南农业大学华山17栋</label></td>
+            <td class="shopping_product_list_5"><input type="text" value="1"/></td>
+            <td class="shopping_product_list_6"><label>待发货</label></td>
+        </tr>
+        <tr class="shopping_product_list" id="shoppingProduct_02">
+            <td class="shopping_product_list_2"><label>2</label></td>
+            <td class="shopping_product_list_1"><a href="#" class="blue"> 小团圆（张爱玲最神秘小说遗稿）</a></td>
+            <td class="shopping_product_list_3">￥<label>28.00</label></td>
+            <td class="shopping_product_list_4"><label>华南农业大学华山17栋</label></td>
+            <td class="shopping_product_list_5"><input type="text" value="1"/></td>
+            <td class="shopping_product_list_6"><label>待发货</label></td>
+        </tr>
+        <tr class="shopping_product_list" id="shoppingProduct_03">
+            <td class="shopping_product_list_2"><label>3</label></td>
+            <td class="shopping_product_list_1"><a href="#" class="blue">不抱怨的世界(畅销全球80国的世界...</a></td>
+            <td class="shopping_product_list_3">￥<label>24.80</label></td>
+            <td class="shopping_product_list_4"><label>华南农业大学华山17栋</label></td>
+            <td class="shopping_product_list_5"><input type="text" value="2"/></td>
+            <td class="shopping_product_list_6"><label>待发货</label></td>
+        </tr>
+        <tr class="shopping_product_list" id="shoppingProduct_04">
+            <td class="shopping_product_list_2"><label>4</label></td>
+            <td class="shopping_product_list_1"><a href="#" class="blue">福玛特双桶洗衣机XPB20-07S</a></td>
+            <td class="shopping_product_list_3">￥<label>458.00</label></td>
+            <td class="shopping_product_list_4"><label>华南农业大学华山17栋</label></td>
+            <td class="shopping_product_list_5"><input type="text" value="1"/></td>
+            <td class="shopping_product_list_6"><label>待发货</label></td>
+        </tr>
+        <tr class="shopping_product_list" id="shoppingProduct_05">
+            <td class="shopping_product_list_2"><label>5</label></td>
+            <td class="shopping_product_list_1"><a href="#" class="blue">PHP和MySQL Web开发 （原书第4版）</a></td>
+            <td class="shopping_product_list_3">￥<label>95.00</label></td>
+            <td class="shopping_product_list_4"><label>华南农业大学华山17栋</label></td>
+            <td class="shopping_product_list_5"><input type="text" value="1"/></td>
+            <td class="shopping_product_list_6"><label>待发货</label></td>
+        </tr>
+        <tr class="shopping_product_list" id="shoppingProduct_06">
+            <td class="shopping_product_list_2"><label>6</label></td>
+            <td class="shopping_product_list_1"><a href="#" class="blue" lineBreakMode="NSLineBreakByTruncatingMiddle">法布尔昆虫记</a>再买￥68.30即可参加“满199元减10元现金”活动）（再买￥68.30即可参加“满199元减10元现金”活动）</td>
+            <td class="shopping_product_list_3">￥<label>198.00</label></td>
+            <td class="shopping_product_list_4"><label>华南农业大学华山17栋</label></td>
+            <td class="shopping_product_list_5"><input type="text" value="1"/></td>
+            <td class="shopping_product_list_6"><label>待发货</label></td>
+        </tr>
+    </table>
+    <div class="shopping_list_end">
+        <div><a id="index.html" href="javascript:void(0);">&nbsp;</a></div>
+        <ul>
+            <li class="shopping_list_end_1"><input name="" type="image" src="images/back_to_index.gif" onclick="back()"/></li> <!--结算按钮-->
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="footer">
+    <iframe src="footer.html" height="50px" width="900px" frameborder="0"></iframe>
+</div>
+</body>
+</html>
