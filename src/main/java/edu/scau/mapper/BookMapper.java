@@ -14,7 +14,7 @@ import edu.scau.model.BookExample;
 @Mapper
 public interface BookMapper {
 
-    @Select({"select ", " * ", " from ", " book ", " where isbn=#{isbn}"})
+    @Select({"select ", " isbn, title, stock, price, discount, sold, author, publish, time, introduction, status, mainPic ", " from ", " book ", " where isbn=#{isbn}"})
     Book selectById(String isbn);
 
 	@Update({"update book set status=#{status} where isbn=#{isbn}"})
