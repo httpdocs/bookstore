@@ -2,13 +2,17 @@ package edu.scau.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 import edu.scau.model.Delivery;
 import edu.scau.model.DeliveryExample;
 import edu.scau.model.DeliveryKey;
 
+@Mapper
 public interface DeliveryMapper {
+	
     int countByExample(DeliveryExample example);
 
     int deleteByExample(DeliveryExample example);

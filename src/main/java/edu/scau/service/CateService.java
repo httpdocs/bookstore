@@ -153,4 +153,18 @@ public class CateService {
 		return array.toString();
 	}
 
+	public String destroy(String cate){
+		JSONObject json = new JSONObject();
+		try{
+			mapper.deleteByPrimaryKey(cate);
+			json.put("status", 0);
+			json.put("msg", "操作成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			json.put("status", -1);
+			json.put("msg", "操作失败");
+		}
+		return json.toString();
+	}
+	
 }

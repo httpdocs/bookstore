@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.scau.mapper.BookMapper;
+import edu.scau.mapper.CateHasBookMapper;
 import edu.scau.model.Book;
 import edu.scau.util.DBSessionFactory;
 import edu.scau.util.JSONUtil;
@@ -22,17 +23,22 @@ public class BookService {
 	@Autowired
 	private BookMapper bookMapper;
 	
+	@Autowired
+	private CateHasBookMapper cateMapper;
+	
 	/**
 	 * 添加图书
 	 * @param book
 	 * @return
 	 */
-	public String add(Book book){
+	public String add(Book book, String cate){
 		SqlSession session = DBSessionFactory.openSession();
 		BookMapper mapper = session.getMapper(BookMapper.class);
+		CateHasBookMapper cateMapper = session.getMapper(CateHasBookMapper.class);
 		JSONObject json = new JSONObject();
 		try{
 			mapper.insert(book);
+			cateMapper.insert(book.getIsbn(), cate);
 			session.commit();
 			json.put(KEY[0], 0);
 			json.put(KEY[1], MSG[0]);

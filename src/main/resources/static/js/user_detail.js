@@ -1,19 +1,4 @@
-function show(e) {
-    var objID = e.id;
-    if(objID == 'personal'){
-        var s = document.getElementById('div_personal');
-        s.style.display="block";
-        var s2 = document.getElementById('div_address');
-        s2.style.display='none';
 
-    }else if (objID == 'address')
-    {
-        var s = document.getElementById('div_personal');
-        s.style.display="none";
-        var s2 = document.getElementById('div_address');
-        s2.style.display='block';
-    }
-}
 $(function(){
     //省市级联
     var cityList = new Array();
@@ -73,10 +58,27 @@ $("#ok_btn").mouseover(function(){
 //点击了修改按钮之后，禁用掉输入框
 function ban() {
     // $("#receiver_nickname").val("11111111111");
- 
     $("#receiver_name").removeAttr("disabled");
     $("#receiver_phone").removeAttr("disabled");
     $("#receiver_post").removeAttr("disabled");
     $("#city").removeAttr("disabled");
     $("#province").removeAttr("disabled");
+    $("#registerBtn").removeAttr("disabled");
 }
+$("#province").ready(function () {
+    var $this = $(this);
+    $.getJSON("/getJson",function(data){
+        $this.attr("disabled", "true");
+        $("#receiver_name").val(data.name);
+        $("#receiver_phone").val(data.tel);
+        $("#receiver_post").val(data.postcode);
+        var line = data.detail;
+        var strs = new Array();
+        strs = line.split(",");
+        $("#province_op").html(strs[0]);
+        $("#city_op").html(strs[1]);
+
+    }, "json");
+})
+
+

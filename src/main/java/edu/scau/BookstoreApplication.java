@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 import edu.scau.interceptor.CharacterEncodingInterceptor;
 import edu.scau.interceptor.LoginInterceptor;
+import edu.scau.interceptor.UserLoginInterceptor;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -24,6 +25,7 @@ class Configurer extends WebMvcAutoConfigurationAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 		super.addInterceptors(registry);
 		registry.addInterceptor(new CharacterEncodingInterceptor());
+		registry.addInterceptor(new UserLoginInterceptor()).addPathPatterns("/UICadd","/UICini");
 //		registry.addInterceptor(new LoginInterceptor()).excludePathPatterns("/admin_login");
 	}
 	
