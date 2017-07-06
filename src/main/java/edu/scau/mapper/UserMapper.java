@@ -12,12 +12,7 @@ public interface UserMapper {
     final static String TABLE_NAME = " user ";
     final static String INSERT_FIELDS = " userid, name, password ";
 
-<<<<<<< HEAD
-    final static String SELECT_FIELDS = INSERT_FIELDS + " , defaddr ";
-=======
     final static String SELECT_FIELDS = INSERT_FIELDS + ", defaddr ";
->>>>>>> branch 'master' of https://git.oschina.net/yszhong95/SSM_Bookstore.git
-
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
             ") values(#{userid},#{name},#{password})"})
