@@ -97,10 +97,7 @@
         from order
         where orderId = #{orderid,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from order
-    where orderId = #{orderid,jdbcType=INTEGER}
-  </delete>
+  
     <delete id="deleteByExample" parameterType="edu.scau.model.OrderExample">
         delete from order
         <if test="_parameter != null">

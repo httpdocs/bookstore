@@ -31,6 +31,7 @@ body {
 }
 -->
 </style>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
 <script>
 var  highlightcolor='#d5f4fe';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
@@ -79,11 +80,59 @@ for(i=0;i<cs.length;i++){
 }
 }
 </script>
+<script>
 
+//发送ajax请求给服务器，取得book的数据
+function getListOfOrder(){
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/ordermgr/list',
+		contentType:'text/html;charset=utf-8',
+		success:function(data){
+			var json = JSON.parse(data);  	
+			var list = document.getElementById("list");
+			list.innerHTML="";
+			for(i in json){
+				var row = "";				
+				row += "<tr><td width=\"8%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].orderid + "</td>";
+				row += "<td width=\"13%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\" >" +json[i].userid+"</td>";
+				row += "<td width=\"9%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\" >" + json[i].adderssid+"</td>";
+				row += "<td width=\"8%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" +json[i].total+"</td>";
+				row += "<td width=\"10%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].status+"</td>";
+				row += "<td width=\"11%\"   bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].comment+"</td>";
+				row += "<td width=\"7%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].remark+"</td>";
+				row += "<td width=\"7%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].time+"</td>";
+				row += "<td width=\"16%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\"><input name=\"submit\" type=\"submit\" value=\"修改\" />|<input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne("+json[i].orderid+")\" /></td></tr>";
+				list.innerHTML+=row;
+		}
+		}
+	});
+}
+
+function deleteOne(orderid){
+	
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/ordermgr/detele',
+		contentType:'text/html;charset=utf-8',
+		data:'orderid='+orderid,
+		success:function(data){
+		    var json =JSON.parse(data);
+			if(json.status == 0){
+	    		location.href="order_select.html";
+	    	} else {
+	    		alert(json.msg);
+	    	}
+		}
+	});
+	
+}
+
+</script>
 
 </head>
 
-<body bgcolor="#EEF2FB">
+<body bgcolor="#EEF2FB" onload="getListOfOrder()">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -130,53 +179,21 @@ for(i=0;i<cs.length;i++){
 	<table width="100%" border="1" cellpadding="1" cellspacing="1" >
       <tr>
         <td width="8%" align="center"  bgcolor="d3eaef" class="STYLE6">订单编号</td>
-        <td width="9%" align="center"  bgcolor="d3eaef" class="STYLE6">书籍编号</td>
-        <td width="8%" align="center"  bgcolor="d3eaef" class="STYLE6">数量</td>
-        <td width="10%" align="center"  bgcolor="d3eaef" class="STYLE6">总价</td>
         <td width="13%" align="center"  bgcolor="d3eaef" class="STYLE6">用户编号</td>
-        <td width="11%" align="center"  bgcolor="d3eaef" class="STYLE6">送货方式</td>
-        <td width="11%" align="center"  bgcolor="d3eaef" class="STYLE6">是否已付款</td>
-		<td width="7%" align="center"  bgcolor="d3eaef" class="STYLE6">是否发货</td>
+        <td width="9%" align="center"  bgcolor="d3eaef" class="STYLE6">地址编号</td>
+        <td width="8%" align="center"  bgcolor="d3eaef" class="STYLE6">数量</td>
+        <td width="10%" align="center"  bgcolor="d3eaef" class="STYLE6">状态</td>   
+        <td width="11%" align="center"  bgcolor="d3eaef" class="STYLE6">留言评论</td>
+		<td width="7%" align="center"  bgcolor="d3eaef" class="STYLE6">标记</td>
 		<td width="7%" align="center"  bgcolor="d3eaef" class="STYLE6">下单时间</td>
         <td width="16%" align="center"  bgcolor="d3eaef" class="STYLE6">操作</td>
        
       </tr>
-      <tr>
-        <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-		<td width="9%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="8%"  bgcolor="#FFFFFF" class="STYLE19" >null</td>
-        <td width="10%"  bgcolor="#FFFFFF" class="STYLE19" >null</td>
-        <td width="13%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="11%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="11%"   bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="7%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-		<td width="7%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="16%" align="center"  bgcolor="#FFFFFF" class="STYLE19"><input name="submit" type="submit" value="修改" />|<input name="submit" type="submit" value="删除" /></td>
-      </tr>
-       <tr>
-	   <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="9%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="10%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="13%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="11%" bgcolor="#FFFFFF" class="STYLE19" >null</td>
-		<td width="11%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="7%"   bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="7%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="16%" align="center"  bgcolor="#FFFFFF" class="STYLE19"><input name="submit" type="submit" value="修改" />|<input name="submit" type="submit" value="删除" /></td>
-      </tr>  <tr>
-	  <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="9%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-		<td width="10%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="13%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="11%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="11%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="7%"   bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="7%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="16%" align="center"  bgcolor="#FFFFFF" class="STYLE19"><input name="submit" type="submit" value="修改" />|<input name="submit" type="submit" value="删除" /></td>
-      </tr>
-    </table></td>
+      </table>
+      <table id="list">
+         
+    </table>
+    </td>
   </tr>
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">

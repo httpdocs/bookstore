@@ -6,13 +6,17 @@ import edu.scau.model.User;
 
 @Mapper
 public interface UserMapper {
-    //注解写法
+    //娉ㄨВ鍐欐硶
 
-    //宏定义
+    //瀹忓畾涔�
     final static String TABLE_NAME = " user ";
     final static String INSERT_FIELDS = " userid, name, password ";
 
+<<<<<<< HEAD
     final static String SELECT_FIELDS = INSERT_FIELDS + " , defaddr ";
+=======
+    final static String SELECT_FIELDS = INSERT_FIELDS + ", defaddr ";
+>>>>>>> branch 'master' of https://git.oschina.net/yszhong95/SSM_Bookstore.git
 
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
@@ -34,7 +38,7 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
 
-/*  接口示例
+/*  鎺ュ彛绀轰緥
     int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
