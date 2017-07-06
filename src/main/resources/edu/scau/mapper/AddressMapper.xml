@@ -105,7 +105,7 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="edu.scau.model.Address" useGeneratedKeys="true" keyProperty="addressId">
+    <insert id="insert" parameterType="edu.scau.model.Address" useGeneratedKeys="true" keyProperty="addressid">
     insert into address (addressId, userId, name, 
       tel, detail, postcode
       )

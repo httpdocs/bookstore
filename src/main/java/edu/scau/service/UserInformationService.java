@@ -46,7 +46,8 @@ public class UserInformationService {
 			   
 			   addressMapper.insert(address);
 			   user.setDefaddr(address.getAddressid());
-			   System.out.println("address插入成功,addressId："+address.getAddressid());
+			   userMapper.updateByPrimaryKeySelective(user);
+			   System.out.println("address插入成功,addressId："+address.getAddressid()+" user中查找："+user.getDefaddr());
 		   }
 		return address;
 	   }
@@ -63,4 +64,14 @@ public class UserInformationService {
 		return address;
 	   }
 	   
+	   public Address getAddress(String userid){
+		      user=getUser(userid);
+		      Integer addressId=user.getDefaddr();
+		      if(addressId==null){
+		    	  return null;
+		      }
+		      else{
+		    	  return addressMapper.selectById(addressId);
+		      }
+	   }
 }

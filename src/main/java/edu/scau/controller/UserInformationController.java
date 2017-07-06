@@ -1,5 +1,7 @@
 package edu.scau.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +18,14 @@ import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonAnyFormatVisitor;
 
 import edu.scau.model.Address;
 import edu.scau.service.UserInformationService;
+import edu.scau.util.JSONUtil;
 
 @Controller
 public class UserInformationController {
 	  @Autowired
       UserInformationService userInformationService;
 	  
+	  JSONObject json;
 	  private String userid=null;
 	  
 	  @RequestMapping("/UICadd")
@@ -29,17 +33,20 @@ public class UserInformationController {
 		    
 		     System.out.println("UICadd执行到这里了："+newAddress.getDetail()+"userid为"+userid);
 		     
-		     JSONObject jsonObject=new JSONObject();
-		     jsonObject.put("UICaddress", userInformationService.add(newAddress,userid));
-		     System.out.println(jsonObject);
-		     model.addAttribute("UICaddress", userInformationService.add(newAddress,userid));
+		     json=changeToJson(userInformationService.add(newAddress,userid));
+		     if(json!=null){
+		    	 model.addAttribute("UICresult", "修改成功");
+		     }else{
+		    	 model.addAttribute("UICresult", "修改失败");
+		     }
+//		     model.addAttribute("UICaddress", userInformationService.add(newAddress,userid));
 		     return "user_detail";
 		    
 	  }
 	  
 	  
 	  @RequestMapping(path = {"/UICchecked"}, method = {RequestMethod.GET})
-	    public String checkedLogin(HttpServletRequest request) {
+	    public String checked(HttpServletRequest request) {
 
 	        String id = null;
 	        Cookie[] cookies = request.getCookies();
@@ -51,6 +58,7 @@ public class UserInformationController {
 	                    id = cookievalue;
 	                    userid=id;
 	                    System.out.println("userid为："+userid+" id为："+id);
+	                    json=changeToJson(userInformationService.getAddress(userid));
 	                    return "user_detail";
 	                }
 	            }
@@ -61,13 +69,28 @@ public class UserInformationController {
 	    }
 	  
 	  
+	  @RequestMapping("/getJson")
+	  public void getJson(HttpServletResponse response){
+		  System.out.println("getJson返回的数据"+json.toString());
+		  try {
+			response.getWriter().println(json.toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  }
+	  
+	  
 	  @RequestMapping("/test")
 	  public String test(Model model,HttpServletRequest request,Address newAddress){
 		  System.out.println("执行到这里了："+newAddress.getDetail());
 		  return "user_detail";
 	  }
 	  
-	
+	  private JSONObject changeToJson(Address address){
+		  JSONObject myJsonObject=JSONUtil.objectToObject(address,Address.class);
+		  return myJsonObject;
+	  }
 	  
 	 
 }

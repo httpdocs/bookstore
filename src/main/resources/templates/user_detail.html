@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,34 +30,13 @@
     </div>
     <!--user_content_left结束-->
     <div class="user_content_right">
-        <form action="/UICadd" method="get" id="form">
-        <!--<div id="div_personal" style="display: block">-->
-            <!--<div class="div_table" style="width: 50%">-->
-                <!--<table style="word-break: break-all;word-wrap: break-word">-->
-                    <!--<tr>-->
-                        <!--<td><label class="info2">昵称：</label></td>-->
-                        <!--<td><input type="text" id="receiver_nickname" disabled="ture" class="len_edit" ></td>-->
-                        <!--<td><label class="info"><br></label></td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td><label class="info2">性别：</label></td>-->
-                        <!--<td><input id="man" type="radio" checked="checked" disabled="ture" name="man_women">男<input id="women" disabled="ture" type="radio" name="man_women">女</td>-->
-                        <!--<td><label class="info"></label></td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td><label class="info2">爱好：</label></td>-->
-                        <!--<td><input type="text" id="receiver_hobby" disabled="ture" name="receiver_hobby" class="len_edit"></td>-->
-                        <!--<td><label class="info"></label></td>-->
-                    <!--</tr>-->
-                <!--</table>-->
-            <!--</div>-->
-        <!--</div>-->
+        <form action="/UICadd" method="post" id="form">
         <div id="div_address" style="display: block">
             <div class="div_table">
                     <table>
                         <tr>
                             <td><label class="info2">姓名(必填)：</label></td>
-                            <td><input type="text" id="receiver_name" disabled="ture" name="name" class="len_edit" value="$!{UICaddress.name}"></td>
+                            <td><input type="text" id="receiver_name" disabled="ture" name="name" class="len_edit"></td>
                             <td><label class="info">填写收件人的姓名</label></td>
                         </tr>
                         <tr>
@@ -69,12 +48,12 @@
                             <td><label class="info2">收件地址(必填)：</label></td>
                             <td>
                                 <select id="province" style="width:120px;" disabled="ture" name="detail" class="len_edit">
-                                <option>请选择省/城市</option>
+                                <option id="province_op">请选择省/城市</option>
                                 </select>
                             </td>
                             <td>
                                 <select id="city"  style="width:130px;" name="detail" disabled="ture">
-                                    <option>请选择城市/地区</option>
+                                    <option id="city_op">请选择城市/地区</option>
                                 </select>
                             </td>
                             <td><label class="info">填写收件人的收货地址</label></td>
@@ -87,7 +66,7 @@
                     </table>
             </div>
         </div>
-            <div class="ok_btn"><input id="registerBtn" type="image" src="images/ok_btn2.jpg" /><label id="test">$!{UICresult}</label></div>
+        <div class="ok_btn"><input id="registerBtn" type="image" src="images/ok_btn2.jpg"/><label id="test" >$!{UICresult}</label></div>
         </form>
         <div class="edit_btn"><input id="editBtn" type="image" src="images/edit_btn.jpg" onclick="ban()"></div>
     </div>

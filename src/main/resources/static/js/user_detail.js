@@ -73,10 +73,30 @@ $("#ok_btn").mouseover(function(){
 //点击了修改按钮之后，禁用掉输入框
 function ban() {
     // $("#receiver_nickname").val("11111111111");
- 
     $("#receiver_name").removeAttr("disabled");
     $("#receiver_phone").removeAttr("disabled");
     $("#receiver_post").removeAttr("disabled");
     $("#city").removeAttr("disabled");
     $("#province").removeAttr("disabled");
 }
+$("#province").ready(function () {
+    var $this = $(this);
+
+    $.getJSON("/getJson",function(data){
+        $this.attr("disabled", "true");
+        $("#receiver_name").val(data.name);
+        $("#receiver_phone").val(data.tel);
+        $("#receiver_post").val(data.postcode);
+        var line = data.detail;
+        var strs = new Array();
+        strs = line.split(",");
+        $("#province_op").html(strs[0]);
+        $("#city_op").html(strs[1]);
+
+    }, "json");
+
+
+    
+})
+
+
