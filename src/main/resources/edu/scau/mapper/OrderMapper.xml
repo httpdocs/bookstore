@@ -74,22 +74,12 @@
     <sql id="Base_Column_List">
     orderId, addressId, userId, total, status, time, comment, remark
   </sql>
-    <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.scau.model.OrderExample">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List"/>
-        from order
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-        <if test="pagination != null">
-            limit #{pagination.begin} , #{pagination.length}
-        </if>
+    <select id="selectLatestOrder" resultMap="BaseResultMap" parameterType="edu.scau.model.Order">
+        select orderId, addressId, userId, total, status, time, comment, remark
+        from `order`
+            WHERE userid = #{userid}
+            ORDER BY orderid DESC
+            LIMIT #{offset},#{limit}
     </select>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -257,4 +247,21 @@
       remark = #{remark,jdbcType=VARCHAR}
     where orderId = #{orderid,jdbcType=INTEGER}
   </update>
+  
+  <select id="getOrder" parameterType="int" resultMap="ClassResultMap4">
+        select * from `order`,address where `order`.orderId=address.orderId and orderId=#{orderId}
+</select>
+  <resultMap type="edu.scau.mapper.view.OrderDetail" id="ClassResultMap4">
+         <id property="orderId" column="orderId"/>
+         <result property="name" column="name"/>
+         <result property="tel" column="tel"/>
+         <result property="address" column="detail"/>
+         <result property="total" column="total"/>
+         <result property="userId" column="userId"/>
+         <collection property="list" ofType="edu.scau.model.OrderHasBook" column="orderId" select="getList"></collection>
+</resultMap>
+  <select id="getList" parameterType="int" resultType="edu.scau.model.OrderHasBook">
+         select * from book 
+</select>
+  
 </mapper>

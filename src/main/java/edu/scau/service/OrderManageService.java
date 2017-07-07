@@ -46,6 +46,12 @@ public class OrderManageService {
 		return json;
 	}
 	
+	/**
+	 * 发货
+	 * @param orderId
+	 * @param delivery
+	 * @return
+	 */
 	public String deliver(Delivery delivery){
 		JSONObject json = new JSONObject();
 		try{
