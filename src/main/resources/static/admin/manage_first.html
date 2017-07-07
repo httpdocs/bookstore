@@ -80,6 +80,52 @@ for(i=0;i<cs.length;i++){
 }
 </script>
 
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$.ajax({
+	type:'get',
+	url:'http://localhost:8080/admin/list',
+	contentType:'text/html;charset=utf-8',
+	success:function(data){
+		var json = JSON.parse(data);
+	    //	alert(data);
+		var list = document.getElementById("list");
+		list.innerHTML="";
+		for(i in json){
+			var row = "";
+			row += "<tr><td width=\"10%\" height=\"20\" bgcolor=\"#FFFFFF\" class=\"STYLE19\"><div align=\"center\">"+json[i].adminid+"</div></td>";
+			row += "<td width=\"27%\" height=\"20\" bgcolor=\"#FFFFFF\" class=\"STYLE19\"><div align=\"center\">"+json[i].name+"</div></td>";
+			row += " <td width=\"14%\" height=\"20\" bgcolor=\"#FFFFFF\" class=\"STYLE19\"><div align=\"center\">*********</div></td>";
+			row += "<td width=\"14%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\"><input name=\"submit\" type=\"submit\" value=\"修改\" onclick=\"jumpUpdate("+json[i].adminid+")\" />|<input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne("+json[i].adminid+")\" /></td></tr>";
+			list.innerHTML+=row;
+		}
+	}
+});
+</script>
+
+<script>
+function deleteOne(adminid){
+	
+	$.ajax({
+		type:'get',
+		url:"http://localhost:8080/admin/delete?adminid="+adminid,
+		contentType:'text/html;charset=utf-8',
+		success:function(data){
+			var json = JSON.parse(data);
+		    if(json.status==0){
+		    	location.reload();
+		    }else{
+		    	alert(json.msg);
+		    }		
+		}
+	});
+}
+
+function jumpUpdate(adminid){
+	location.href="/admin/manage_update.html?adminid="+adminid;
+}
+
+</script>
 
 </head>
 
@@ -105,116 +151,18 @@ for(i=0;i<cs.length;i++){
   </tr>
   <tr>
     <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce" onmouseover="changeto()"  onmouseout="changeback()">
-      <tr>
-        
-        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">用户名</span></div></td>
-        <td width="15%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">用户角色</span></div></td>
-        <td width="14%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">联系方式</span></div></td>
-        <td width="16%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">IP地址</span></div></td>
-        <td width="27%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">详细描述</span></div></td>
-        <td width="14%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">基本操作</span></div></td>
+      <tr>      
+        <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">用户id</span></div></td>
+        <td width="27%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">用户名</span></div></td>
+        <td width="14%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">用户密码</span></div></td>
+         <td width="14%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">操作</span></div></td>
       </tr>
-      <tr>
-        
-        <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><span class="STYLE19">admin</span></div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-          <input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-        
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-        
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-        
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-       
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-        
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-        
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-        
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-      <tr>
-       
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">admin</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">系统管理员</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">13913612548</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">192.168.0.124</div></td>
-        <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center">用户可以对系统的所有操作进行管理...</div></td>
-        <td height="20" bgcolor="#FFFFFF"><div align="center"><input name="button" type="button" value="修改" /> 
-          | 
-          <input type="button" value="删除" /></div></td>
-      </tr>
-    </table></td>
+    </table>
+    <table id="list" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#a8c7ce" onmouseover="changeto()"  onmouseout="changeback()">
+    
+    </table>
+    
+    </td>
   </tr>
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">

@@ -18,7 +18,7 @@ import edu.scau.util.JSONUtil;
 public class BookService {
 	
 	final private static String[] KEY = {"status", "msg"};
-	final private static String[] MSG = {"操作成功", "未指定isbn", "字段不完整"};
+	final private static String[] MSG = {"鎿嶄綔鎴愬姛", "鏈寚瀹歩sbn", "瀛楁涓嶅畬鏁�"};
 	
 	@Autowired
 	private BookMapper bookMapper;
@@ -27,7 +27,7 @@ public class BookService {
 	private CateHasBookMapper cateMapper;
 	
 	/**
-	 * 添加图书
+	 * 娣诲姞鍥句功
 	 * @param book
 	 * @return
 	 */
@@ -52,7 +52,7 @@ public class BookService {
 	}
 	
 	/**
-	 * 图书上/下架
+	 * 鍥句功涓�/涓嬫灦
 	 * @param book
 	 * @return
 	 */
@@ -70,7 +70,7 @@ public class BookService {
 	}
 	
 	/**
-	 * 所有图书
+	 * 鎵�鏈夊浘涔�
 	 * @return
 	 */
 	public String select(){
@@ -80,7 +80,7 @@ public class BookService {
 	}
 	
 	/**
-	 * 删除一本书
+	 * 鍒犻櫎涓�鏈功
 	 * @param isbn
 	 * @return
 	 */
@@ -92,13 +92,13 @@ public class BookService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			json.put("status", -1);
-			json.put("msg", "操作失败");
+			json.put("msg", "鎿嶄綔澶辫触");
 		}
 		return json;
 	}
 	
 	/**
-	 * 获取一本书的信息
+	 * 鑾峰彇涓�鏈功鐨勪俊鎭�
 	 * @param isbn
 	 * @return
 	 */
@@ -113,11 +113,11 @@ public class BookService {
 		try{
 			bookMapper.updateByPrimaryKeySelective(book);
 			json.put("status", 0);
-			json.put("msg", "操作成功");
+			json.put("msg", "鎿嶄綔鎴愬姛");
 		} catch (Exception e) {
 			e.printStackTrace();
 			json.put("status", -1);
-			json.put("msg", "操作失败");
+			json.put("msg", "鎿嶄綔澶辫触");
 		}
 		return json;
 	}

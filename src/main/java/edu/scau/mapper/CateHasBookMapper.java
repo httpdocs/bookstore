@@ -24,7 +24,7 @@ public interface CateHasBookMapper {
     CateHasBookKey select(String isbn, String cate);
     
     @Insert({"insert into cate_has_book values(#{cate}, #{isbn})"})
-    int insert(String isbn, String cate);
+    int insert(@Param("isbn")String isbn, @Param("cate")String cate);
     
     @Delete({"delete from cate_has_book where isbn=#{isbn} and cate=#{cate}"})
     int delete(String isbn, String cate);

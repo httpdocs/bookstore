@@ -31,6 +31,8 @@ body {
 }
 -->
 </style>
+
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
 <script>
 var  highlightcolor='#d5f4fe';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
@@ -78,12 +80,34 @@ for(i=0;i<cs.length;i++){
 	cs[i].style.backgroundColor="";
 }
 }
+
+//发送ajax请求给服务器，取数据
+function list(){
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/catemgr/list',
+		contentType:'text/html;charset=utf-8',
+		success:function(data){
+			var json = JSON.parse(data);
+			var select = document.getElementById("select");
+			select.innerHTML= "<option>请选择</option>";
+			for(var i in json){
+				var row =null;
+				row +="<option>"+json[i].parent+"</option>";
+				select.innerHTML +=row;
+			}
+			
+		}
+	});	
+}
+
+
 </script>
 
 
 </head>
 
-<body bgcolor="#EEF2FB">
+<body bgcolor="#EEF2FB" onload="list()">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -147,10 +171,8 @@ for(i=0;i<cs.length;i++){
 		    </tr>
             <tr>
               <td align="right">书籍类别:</td>
-              <td><select>
-                <option value="">请选择</option>
-			<option value="tsyx">图书音像</option>
-			<option value="sssh">时尚生活</option>
+              <td><select name="cate" id="select">
+               
               </select> </td>
 		    </tr>
             <tr>

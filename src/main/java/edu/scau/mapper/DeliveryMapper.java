@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import edu.scau.model.Delivery;
@@ -34,4 +35,7 @@ public interface DeliveryMapper {
     int updateByPrimaryKeySelective(Delivery record);
 
     int updateByPrimaryKey(Delivery record);
+
+    @Select({"select * from delivery where orderid=#{orderid}"})
+	Delivery selectByOrderId(Integer orderid);
 }

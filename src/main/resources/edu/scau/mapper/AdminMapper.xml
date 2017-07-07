@@ -109,37 +109,7 @@
     values (#{adminid,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{authority,jdbcType=INTEGER})
   </insert>
-    <insert id="insertSelective" parameterType="edu.scau.model.Admin">
-        insert into admin
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="adminid != null">
-                adminId,
-            </if>
-            <if test="password != null">
-                password,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="authority != null">
-                authority,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="adminid != null">
-                #{adminid,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="authority != null">
-                #{authority,jdbcType=INTEGER},
-            </if>
-        </trim>
-    </insert>
+  
     <select id="countByExample" parameterType="edu.scau.model.AdminExample" resultType="java.lang.Integer">
         select count(*) from admin
         <if test="_parameter != null">

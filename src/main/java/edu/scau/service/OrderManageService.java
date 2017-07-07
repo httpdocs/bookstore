@@ -46,22 +46,38 @@ public class OrderManageService {
 		return json;
 	}
 	
-	public String deliver(int orderId, Delivery delivery){
+	public String deliver(Delivery delivery){
 		JSONObject json = new JSONObject();
 		try{
-			Order order = mapper.selectByPrimaryKey(orderId);
+			Order order = mapper.selectByPrimaryKey(delivery.getOrderid());
 			if(order == null){
 				json.put("status", -2);
 				json.put("msg", "订单不存在");
+				return json.toString();
 			}
+//			System.err.println(delivery.getOrderid()+"deID:"+delivery.getDeliveryid()+"com"+delivery.getCompany()+"time"+delivery.getTime());
 			deliveryMapper.insert(delivery);
-			mapper.delivery(orderId);
+			mapper.delivery(delivery.getOrderid());
 		} catch (Exception e) {
+			e.printStackTrace();
 			json.put("status", -1);
 			json.put("msg", "操作失败");
+			return json.toString();
 		}
 		json.put("status", 0);
 		json.put("msg", "发货成功");
 		return json.toString();
 	}
+
+
+	public String selectByOrderId(Delivery delivery) {	
+//		System.err.println(delivery.getDeliveryid()+delivery.getOrderid());
+		Delivery delivery2Return = deliveryMapper.selectByOrderId(delivery.getOrderid());
+		System.err.println("Service  devid "+delivery2Return.getDeliveryid()+" com "+delivery2Return.getCompany()+" orderid "+delivery2Return.getOrderid());
+		JSONObject json = new JSONObject(delivery2Return);
+		return json.toString();
+	}
+
+
+	
 }

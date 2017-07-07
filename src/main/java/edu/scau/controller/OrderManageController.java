@@ -43,11 +43,22 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping("/deliver")
-	public void delivery(int orderId, Delivery delivery, HttpServletResponse response){
-		String json = service.deliver(orderId, delivery);
+	public void delivery(Delivery delivery, HttpServletResponse response){
+		String json = service.deliver( delivery);
 		try {
 			response.getWriter().println(json);
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/getDelivery")
+	public void getDelivery(Delivery delivery,HttpServletResponse response){
+		System.err.println("Ctrl orderid"+delivery.getOrderid());
+		String json =service.selectByOrderId(delivery);
+		try {
+			response.getWriter().println(json);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

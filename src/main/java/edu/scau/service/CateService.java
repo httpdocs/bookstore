@@ -27,7 +27,7 @@ public class CateService {
 	private CateHasBookMapper bookMapper;
 
 	/**
-	 * 增加分类
+	 * 澧炲姞鍒嗙被
 	 * 
 	 * @param cate
 	 * @return
@@ -39,23 +39,23 @@ public class CateService {
 		JSONObject json = new JSONObject();
 		if (c != null) {
 			json.put("status", -2);
-			json.put("msg", "分类已存在");
+			json.put("msg", "鍒嗙被宸插瓨鍦�");
 		} else {
 			try {
 				mapper.insertSelective(cate);
 				session.commit();
 				json.put("status", 0);
-				json.put("msg", "分类添加成功");
+				json.put("msg", "鍒嗙被娣诲姞鎴愬姛");
 			} catch (Exception e) {
 				json.put("status", -1);
-				json.put("msg", "操作失败");
+				json.put("msg", "鎿嶄綔澶辫触");
 			}
 		}
 		return json.toString();
 	}
 
 	/**
-	 * 往分类中添加一本书
+	 * 寰�鍒嗙被涓坊鍔犱竴鏈功
 	 * 
 	 * @param isbn
 	 * @param cate
@@ -67,28 +67,28 @@ public class CateService {
 		Cate c = mapper.selectByPrimaryKey(cate);
 		if (c == null) {
 			json.put("status", -3);
-			json.put("msg", "["+cate+"]分类不存在");
+			json.put("msg", "["+cate+"]鍒嗙被涓嶅瓨鍦�");
 		} else if(c.getParent() == null){
 			json.put("status", -4);
-			json.put("msg", "["+cate+"]分类不是二级分类，请选择一个二级分类");
+			json.put("msg", "["+cate+"]鍒嗙被涓嶆槸浜岀骇鍒嗙被锛岃閫夋嫨涓�涓簩绾у垎绫�");
 		} else if (row != null){
 			json.put("status", -2);
-			json.put("msg", "[" + isbn + "]已存在于[" + cate + "]分类");
+			json.put("msg", "[" + isbn + "]宸插瓨鍦ㄤ簬[" + cate + "]鍒嗙被");
 		} else {
 			try {
 				bookMapper.insert(isbn, cate);
 				json.put("status", 0);
-				json.put("msg", "操作成功");
+				json.put("msg", "鎿嶄綔鎴愬姛");
 			} catch (Exception e) {
 				json.put("status", -1);
-				json.put("msg", "操作失败");
+				json.put("msg", "鎿嶄綔澶辫触");
 			}
 		}
 		return json.toString();
 	}
 	
 	/**
-	 * 从分类中移除一本书
+	 * 浠庡垎绫讳腑绉婚櫎涓�鏈功
 	 * @param isbn
 	 * @param cate
 	 * @return
@@ -98,22 +98,22 @@ public class CateService {
 		CateHasBookKey row = bookMapper.select(isbn, cate);
 		if (row == null) {
 			json.put("status", -2);
-			json.put("msg", "[" + isbn + "]不存在于[" + cate + "]分类");
+			json.put("msg", "[" + isbn + "]涓嶅瓨鍦ㄤ簬[" + cate + "]鍒嗙被");
 		} else {
 			try {
 				bookMapper.delete(isbn, cate);
 				json.put("status", 0);
-				json.put("msg", "操作成功");
+				json.put("msg", "鎿嶄綔鎴愬姛");
 			} catch (Exception e) {
 				json.put("status", -1);
-				json.put("msg", "操作失败");
+				json.put("msg", "鎿嶄綔澶辫触");
 			}
 		}
 		return json.toString();
 	}
 
 	/**
-	 * 获取分类树
+	 * 鑾峰彇鍒嗙被鏍�
 	 * 
 	 * @return
 	 */
@@ -158,11 +158,11 @@ public class CateService {
 		try{
 			mapper.deleteByPrimaryKey(cate);
 			json.put("status", 0);
-			json.put("msg", "操作成功");
+			json.put("msg", "鎿嶄綔鎴愬姛");
 		} catch (Exception e) {
 			e.printStackTrace();
 			json.put("status", -1);
-			json.put("msg", "操作失败");
+			json.put("msg", "鎿嶄綔澶辫触");
 		}
 		return json.toString();
 	}

@@ -7,7 +7,7 @@ public class Admin {
 
     private String name;
 
-    private Integer authority;
+    private Integer authority = 1;
 
     public String getAdminid() {
         return adminid;

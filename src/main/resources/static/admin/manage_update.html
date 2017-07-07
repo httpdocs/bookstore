@@ -31,6 +31,8 @@ body {
 }
 -->
 </style>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+
 <script>
 var  highlightcolor='#d5f4fe';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
@@ -79,11 +81,38 @@ for(i=0;i<cs.length;i++){
 }
 }
 </script>
+<script>
+//解析请求的参数，取得请求参数值
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
 
+//发送ajax请求给服务器，取得book的数据
+function getBeforeUpdate(){
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/admin/get?adminid='+GetQueryString("adminid"),
+		contentType:'text/html;charset=utf-8',
+		success:function(data){
+			//将json格式的字符串转换为json对象
+			var json = JSON.parse(data);
+			document.getElementById("adminid").value=json.adminid;
+			document.getElementById("nameid").value=json.name;
+			document.getElementById("pwdid").value="*********";
+			
+		}
+	});	
+}
+
+
+</script>
 
 </head>
 
-<body bgcolor="#EEF2FB">
+<body bgcolor="#EEF2FB" onload="getBeforeUpdate()">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -111,27 +140,19 @@ for(i=0;i<cs.length;i++){
 </form></td>
 </tr>
 </table>
+<form action="/admin/update" method="post">
 <table width="1110" border="0">
             <tr>
-              <td width="104" align="right">用户名:</td>
-              <td width="384"><input type="text" name="bianhao"></td>
-	
-            </tr>
+              <td width="104" align="right">用户id:</td>
+              <td width="384"><input type="text" name="adminid" id="adminid"></td>	
+            </tr> 
             <tr>
-              <td align="right">用户角色:</td>
-              <td><input type="text" name="name"></td>
+              <td align="right">用户名：</td>
+              <td><input type="text" name="name" id="nameid"></td>
 		    </tr>
             <tr>
-              <td align="right">联系方式:</td>
-              <td><input type="text" name="author"></td>
-		    </tr>
-            <tr>
-              <td align="right">ip地址:</td>
-              <td><input type="text" name="bianhao"></td>
-		    </tr>
-            <tr>
-              <td align="right">详细描述:</td>
-              <td><input type="text" name="bianhao"></td>
+              <td align="right">用户密码</td>
+              <td><input type="text" name="password" id="pwdid"></td>
 		    </tr>
             <tr>
               <td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="修  改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="清  空"></td>
@@ -142,6 +163,8 @@ for(i=0;i<cs.length;i++){
               <td>
             </tr>
       </table>
+</form>
+
 	</td>
   </tr>
   <tr>

@@ -31,6 +31,7 @@ body {
 }
 -->
 </style>
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
 <script>
 var  highlightcolor='#d5f4fe';
 //此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
@@ -78,12 +79,52 @@ for(i=0;i<cs.length;i++){
 	cs[i].style.backgroundColor="";
 }
 }
+
+
+//发送ajax请求给服务器，取数据
+function list(){
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/catemgr/list',
+		contentType:'text/html;charset=utf-8',
+		success:function(data){
+			var json = JSON.parse(data);
+			var list = document.getElementById("list");
+			list.innerHTML=null;		
+			for(var i in json){
+				var row ="";
+				row+="<td style=\"border:1px solid black;margin:0 auto;width:12%;height:50px;line-height:50px;text-align:center;\">"+json[i].parent+"</td>"
+				row+="<td style=\"border:1px solid black;margin:0 auto;width:14%;height:50px;line-height:50px;text-align:center;\"><button onclick=\"deteleOne('"+json[i].parent+"')\">删除</button></td>"
+				list.innerHTML+=row;
+			}
+		}	
+	});	
+}
+
+function deteleOne(cate){
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/catemgr/destroy?cate='+cate,
+		contentType:'text/html;charset=utf-8',
+		success:function(data){
+			var json = JSON.parse(data);
+			if(json.status==0){		
+					//location.href("cate_first.html");
+					location.reload();						
+			}else{
+				alert("删除失败");
+			}
+		}
+	});	
+	
+}
+
 </script>
 
 
 </head>
 
-<body bgcolor="#EEF2FB">
+<body bgcolor="#EEF2FB" onload="list()">
 <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -93,7 +134,7 @@ for(i=0;i<cs.length;i++){
             <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="6%" height="19" valign="bottom"><div align="center"><img src="images/tb.gif" width="14" height="14" /></div></td>
-                <td width="94%" valign="bottom"><span class="STYLE1"> 库存基本信息列表</span></td>
+                <td width="94%" valign="bottom"><span class="STYLE1"> 分类信息</span></td>
               </tr>
             </table></td>
             <td><div align="right"><span class="STYLE1">
@@ -115,42 +156,18 @@ for(i=0;i<cs.length;i++){
   </form></td>
 </tr>
 </table>
-<table  width="100%" border="0" cellpadding="0" cellspacing="0" >
- <tr>
-   <td><input type="text" name="textfield" value="请输入书籍编号"  width="300"/>&nbsp;&nbsp;
-		&nbsp;&nbsp;
-		<input type="button" value=" 搜 索 " /></td>
- </tr>
-</table>
+
 	<table width="100%" border="1" cellpadding="1" cellspacing="1" >
       <tr>
-        <td width="8%" align="center"  bgcolor="d3eaef" class="STYLE6">库存编号</td>
-        <td width="13%" align="center"  bgcolor="d3eaef" class="STYLE6">书籍编号</td>
-        <td width="10%" align="center"  bgcolor="d3eaef" class="STYLE6">库存数量</td>
-        <td width="12%" align="center"  bgcolor="d3eaef" class="STYLE6"> 操作</td>
-      </tr>
-      <tr>
-        <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="13%"  bgcolor="#FFFFFF" class="STYLE19" >null</td>
-        <td width="10%"  bgcolor="#FFFFFF" class="STYLE19" >null</td>
        
-       
-        <td width="14%" align="center"  bgcolor="#FFFFFF" class="STYLE19">
-		<input name="submit" type="submit" value="修改" />|<input name="submit" type="submit" value="删除" /></td>
-      </tr>
-       <tr>
-        <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="13%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="10%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
+        <td width="12%" align="center"  bgcolor="d3eaef" class="STYLE6">分类名</td>
         
-        <td width="14%" align="center"  bgcolor="#FFFFFF" class="STYLE19"><input name="submit" type="submit" value="修改" />|<input name="submit" type="submit" value="删除" /></td>
-      </tr>  <tr>
-        <td width="8%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-        <td width="13%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
-		<td width="10%"  bgcolor="#FFFFFF" class="STYLE19">null</td>
+        <td width="14%" align="center"  bgcolor="d3eaef" class="STYLE6">操作</td>
        
-        <td width="14%" align="center"  bgcolor="#FFFFFF" class="STYLE19"><input name="submit" type="submit" value="修改" />|<input name="submit" type="submit" value="删除" /></td>
       </tr>
+    <table id="list" width="100%" border="1" cellpadding="1" cellspacing="1" >
+    	
+    </table>
     </table></td>
   </tr>
   <tr>
