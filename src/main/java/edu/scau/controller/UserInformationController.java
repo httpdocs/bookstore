@@ -69,10 +69,8 @@ public class UserInformationController {
 	  
 	  private JSONObject changeToJson(Address address){
 		  JSONObject myJsonObject=null;
-		  if(address!=null){
-			  myJsonObject = JSONUtil.objectToObject(address,Address.class);
-			  
-		  }
+		  if(address!=null)
+		  myJsonObject=JSONUtil.objectToObject(address,Address.class);
 		  return myJsonObject;
 	  }
 	  

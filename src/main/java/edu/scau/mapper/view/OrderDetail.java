@@ -1,6 +1,9 @@
 package edu.scau.mapper.view;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import edu.scau.model.OrderHasBook;
 
 public class OrderDetail {
 
@@ -10,6 +13,8 @@ public class OrderDetail {
 	private String name;
 	private String tel;
 	private String address;
+	
+	private List<OrderHasBook> list;
 	
 	public String getUserId() {
 		return userId;
@@ -46,6 +51,12 @@ public class OrderDetail {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public void setList(List<OrderHasBook> list) {
+		this.list = list;
+	}
+	public List<OrderHasBook> getList() {
+		return list;
 	}
 
 }

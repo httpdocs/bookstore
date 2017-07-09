@@ -27,7 +27,7 @@ public class PictureManageController {
 	private static int count = 0;
 
 	@RequestMapping("/picmgr/upload")
-	public void upload(@RequestParam("img") MultipartFile file, HttpServletResponse response) {
+	public void upload(@RequestParam("img") MultipartFile file,String isbn, HttpServletResponse response) {
 		long time = System.currentTimeMillis();
 		File dir = new File("images");
 		if (!dir.exists()) {
@@ -56,7 +56,7 @@ public class PictureManageController {
 				e1.printStackTrace();
 			}
 		}
-		int id = service.upload(path);
+		int id = service.upload(path,isbn);
 		if (id == -1) {
 			json.put("status", -1);
 			json.put("msg", "上传出错");
@@ -64,6 +64,11 @@ public class PictureManageController {
 			json.put("status", 0);
 			json.put("msg", "上传成功");
 			json.put("pictureId", id);
+			try {
+				response.sendRedirect("/admin/right_book_select.html");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}		
 		}
 		try {
 			response.getWriter().println(json.toString());

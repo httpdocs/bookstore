@@ -1,11 +1,15 @@
 package edu.scau.controller;
 
+import edu.scau.mapper.OrderMapper;
+import edu.scau.mapper.UserMapper;
 import edu.scau.model.Address;
 import edu.scau.model.Book;
+import edu.scau.model.Order;
 import edu.scau.model.User;
 import edu.scau.model.ViewObject;
 import edu.scau.service.AddressService;
 import edu.scau.service.CartService;
+import edu.scau.service.OrderService;
 import edu.scau.service.BooksService;
 import edu.scau.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,64 +31,102 @@ import java.util.List;
  */
 @Controller
 public class ShoppingController {
-    @Autowired
-    private CartService cartService;
+	@Autowired
+	private CartService cartService;
 
-    @Autowired
-    BooksService booksService;
+	@Autowired
+	BooksService booksService;
 
-    @Autowired
-    UserService userService;
+	@Autowired
+	UserService userService;
 
-    @Autowired
-    AddressService addressService;
+	@Autowired
+	AddressService addressService;
 
-    private List<ViewObject> getBooksInCart(String id) {
-        List<String> isbnList = cartService.getIsbns(id);
-        List<ViewObject> vos = new ArrayList<>();
-        for(String isbn : isbnList){
-            Book book = booksService.selectById(isbn);
-            ViewObject vo = new ViewObject();
-            vo.set("book", book);
-            vos.add(vo);
-        }
+	@Autowired
+	private OrderService orderService;
 
-        return vos;
-    }
-    @RequestMapping(path = {"/shopping"}, method = {RequestMethod.GET})
-    public String ShoppingList(Model model, HttpServletRequest request) {
+	private List<ViewObject> getBooksInCart(String id) {
+		List<String> isbnList = cartService.getIsbns(id);
+		List<ViewObject> vos = new ArrayList<>();
+		for (String isbn : isbnList) {
+			Book book = booksService.selectById(isbn);
+			ViewObject vo = new ViewObject();
+			vo.set("book", book);
+			vos.add(vo);
+		}
 
-        String id = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                String cookiename = cookie.getName();
-                String cookievalue = cookie.getValue();
-                if ("ticket".equals(cookiename)) {
-                    id = cookievalue;
-                    model.addAttribute("vos", getBooksInCart(id));
+		return vos;
+	}
 
-                    ViewObject vo_user = new ViewObject();
-                    User user = userService.getUser(id);
-                    Address address = addressService.getAddress(user.getDefaddr());
-                   System.out.println((user.getDefaddr()));
-                    System.out.println(address);
-                    vo_user.set("user", user);
+	@RequestMapping(path = { "/shopping" }, method = { RequestMethod.GET })
+	public String ShoppingList(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-                    ViewObject vo_addr = new ViewObject();
-                    vo_addr.set("address", address);
+		String id = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				String cookiename = cookie.getName();
+				String cookievalue = cookie.getValue();
+				if ("ticket".equals(cookiename)) {
+					id = cookievalue;
+					model.addAttribute("vos", getBooksInCart(id));
 
-                    model.addAttribute("vo_user",vo_user);
-                    model.addAttribute("vo_addr",vo_addr);
+					ViewObject vo_user = new ViewObject();
+					System.err.println("test:  " + userService.getUser(id));
+					User user = userService.getUser(id);
+					if (user.getDefaddr() == null) {
+						try {
+							response.sendRedirect("/UICadd");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						return null;
+					}
+					Address address = addressService.getAddress(user.getDefaddr());
+					vo_user.set("user", user);
 
-                    return "shopping";
-                }
-            }
-        }
-        if(id == null)
-            model.addAttribute("msg", "请登录后再使用购物车");
-            return "login";
-    }
+					ViewObject vo_addr = new ViewObject();
+					vo_addr.set("address", address);
+
+					model.addAttribute("vo_user", vo_user);
+					model.addAttribute("vo_addr", vo_addr);
+
+					return "shopping";
+				}
+			}
+		}
+		if (id == null)
+			model.addAttribute("msg", "请登录后再使用购物车");
+		return "login";
+	}
+
+	@RequestMapping("/buynow")
+	public void buynow(String userId, String isbn, HttpServletResponse response) {
+		System.out.println(userId + "   " + isbn);
+		if (cartService.Add(isbn, userId)) {
+			try {
+				response.sendRedirect("/shopping");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	@RequestMapping("/submit")
+	public void submit(String userId, HttpServletResponse response) {
+		boolean test = orderService.submit(userId);
+		if (test) {
+
+			try {
+
+				response.sendRedirect("/order_detail?userid=userid");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
 }
-
-

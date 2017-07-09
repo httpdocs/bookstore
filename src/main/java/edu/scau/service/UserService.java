@@ -14,70 +14,82 @@ import java.util.*;
  */
 @Service
 public class UserService {
-	
-    @Autowired
-    private UserMapper userMapper;
 
-    public Map<String, String> register(String userid, String username, String password) {
-        Map<String, String> map = new HashMap<String, String>();
+	@Autowired
+	private UserMapper userMapper;
 
-        //合法性检测
-        if (StringUtils.isBlank(username)) {
-            map.put("msg", "用户名不能为空");
-            return map;
-        }
-        if (StringUtils.isBlank(password)) {
-            map.put("msg", "密码不能为空");
-            return map;
-        }
+	public Map<String, String> register(String userid, String username, String password) {
+		Map<String, String> map = new HashMap<String, String>();
 
-        User user = userMapper.selectById(userid);
-        if (user != null) {
-            map.put("msg", "用户名已经被注册");
-            return map;
-        }
+		//合法性检测
+		if (StringUtils.isBlank(username)) {
+			map.put("msg", "用户名不能为空");
+			return map;
+		}
+		if (StringUtils.isBlank(password)) {
+			map.put("msg", "密码不能为空");
+			return map;
+		}
 
-        user = new User();
-        user.setUserid(userid);
-        user.setName(username);
-        //MD5算法加密
-        user.setPassword(BookstoreUtil.MD5(password));
-        userMapper.addUser(user);
+		User user = userMapper.selectById(userid);
+		if (user != null) {
+			map.put("msg", "用户名已经被注册");
+			return map;
+		}
 
-        map.put("ticket", userid);
-        return map;
-    }
+		user = new User();
+		user.setUserid(userid);
+		user.setName(username);
+		//MD5算法加密
+		user.setPassword(BookstoreUtil.MD5(password));
+		userMapper.addUser(user);
 
-    public Map<String, String> login(String userid, String password) {
-        Map<String, String> map = new HashMap<String, String>();
+		map.put("ticket", userid);
+		if(user.getName()!=null){
+			map.put("username", user.getName());
+		}else{
+			user.setName("游客");
+			map.put("username", user.getName());
+		}
+		return map;
+	}
 
-        //合法性检测
-        if (StringUtils.isBlank(userid)) {
-            map.put("msg", "用户名不能为空");
-            return map;
-        }
-        if (StringUtils.isBlank(password)) {
-            map.put("msg", "密码不能为空");
-            return map;
-        }
+	public Map<String, String> login(String userid, String password) {
+		Map<String, String> map = new HashMap<String, String>();
 
-        User user = userMapper.selectById(userid);
-        if (user == null) {
-            map.put("msg", "用户名不存在");
-            return map;
-        }
+		//合法性检测
+		if (StringUtils.isBlank(userid)) {
+			map.put("msg", "用户名不能为空");
+			return map;
+		}
+		if (StringUtils.isBlank(password)) {
+			map.put("msg", "密码不能为空");
+			return map;
+		}
 
-        //MD5加密登录密码后与底层数据库作比较
-        if (!BookstoreUtil.MD5(password).equals(user.getPassword())) {
-            map.put("msg", "密码错误");
-            return map;
-        }
+		User user = userMapper.selectById(userid);
+		if (user == null) {
+			map.put("msg", "用户名不存在");
+			return map;
+		}
 
-        map.put("ticket", "userid");
-        return map;
-    }
+		//MD5加密登录密码后与底层数据库作比较
+		if (!BookstoreUtil.MD5(password).equals(user.getPassword())) {
+			map.put("msg", "密码错误");
+			return map;
+		}
 
-    public User getUser(String id) {
-        return userMapper.selectById(id);
-    }
+		map.put("ticket", "userid");
+		if(user.getName()!=null){
+			map.put("username", user.getName());
+		}else{
+			user.setName("游客");
+			map.put("username", user.getName());
+		}
+		return map;
+	}
+
+	public User getUser(String id) {
+		return userMapper.selectById(id);
+	}
 }

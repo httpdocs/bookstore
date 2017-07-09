@@ -29,7 +29,7 @@
     				var list = document.getElementById("list");
     				list.innerHTML="";
     				for(i in json){
-    					var row = "<div class=\"product_storyList_content_left\"><img src=\""+json[i].mainPic+"\" alt=\"图书列表\"/></div>";
+    					var row = "<div class=\"product_storyList_content_left\"><div width=\"80px\"><img src=\"/pictures/get?pictureid="+json[i].mainPic+"\" alt=\"图书列表\" width=\"100%\"/ ></div></div>";
     		            row += "<div class=\"product_storyList_content_right\"><ul>";
     		            row += "<li class=\"product_storyList_content_dash\"><a href=\"/book?isbn="+json[i].isbn+"\" class=\"blue_14\">"+json[i].title+"</a></li>";
     		            row += "<li>作　者："+json[i].author+"</li><li>出版社："+json[i].publish+"</li><li><dl class=\"product_content_dd\">";

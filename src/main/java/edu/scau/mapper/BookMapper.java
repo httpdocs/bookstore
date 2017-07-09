@@ -23,6 +23,9 @@ public interface BookMapper {
 	@Select({"select * from book"})
 	List<Book> selectAll();
 	
+	@Update({"update book set mainPic=#{param2} where isbn=#{param1}"})
+	int updatePic(String isbn, Integer pictureId);
+	
     int countByExample(BookExample example);
 
     int deleteByExample(BookExample example);

@@ -105,7 +105,7 @@
         </if>
     </delete>
     <insert id="insert" parameterType="edu.scau.model.Cart">
-    insert into cart (userId, isbn, quantity
+    insert into cart (userid, isbn, quantity
       )
     values (#{userid,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}
       )

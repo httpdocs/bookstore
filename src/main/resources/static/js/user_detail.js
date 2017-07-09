@@ -68,6 +68,7 @@ function ban() {
 $("#province").ready(function () {
     var $this = $(this);
     $.getJSON("/getJson",function(data){
+    
         $this.attr("disabled", "true");
         $("#receiver_name").val(data.name);
         $("#receiver_phone").val(data.tel);

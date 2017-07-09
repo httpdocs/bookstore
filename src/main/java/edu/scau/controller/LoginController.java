@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -31,10 +32,10 @@ public class LoginController {
     UserService userService;
 
     //返回书城首页
-    @RequestMapping(path = {"/", "/index"}, method = {RequestMethod.GET})
+    @RequestMapping(path = {"/"}, method = {RequestMethod.GET})
+    
     public String Index(Model model) {
-        return "index";
-    }
+        return "redirect:/index.html?key=";    }
 
     //用户点击注册
     @RequestMapping(path = {"/register.action"}, method = {RequestMethod.POST})
@@ -54,6 +55,7 @@ public class LoginController {
                 return "register";
             }
             Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+            Cookie cookie1 = new Cookie("username", map.get("username").toString());
             cookie.setPath("/");
             cookie.setMaxAge(3600*24*7);
             response.addCookie(cookie);

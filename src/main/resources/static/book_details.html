@@ -58,6 +58,17 @@
         alert("添加成功!");
 //        window.location.href = "shopping.html";
     }
+    function buynow(isbn, userId){
+    	
+    	$.ajax({
+			type:'get',
+			url:'http://localhost:8080/buynow?isbn='+isbn+"&userId="+userId,
+			contentType:'text/html;charset=utf-8',
+			success:function(data){
+				location.href="/shopping";
+			}
+		});
+    }
 </script>
 <body>
 <div id="header">
@@ -107,7 +118,7 @@
             <!--<button onclick="slip_to_shopping()">加入购物车</button><button onclick="slip_to_shopping()">立即购买</button>-->
             <div id="img_button">
                 <a href='#' onclick="vertify()"><img src='images/product_buy_02.gif' alt='shopping'/></a>
-                <a href='/addProduct'><img src='images/product_buy_01.gif' alt='shopping'></a>
+                <img src='images/product_buy_01.gif' alt='shopping' onclick="buynow('$!{vo.book.isbn}','$!{vo_user.user.userid}')">
             </div>
         </div>
     </div>

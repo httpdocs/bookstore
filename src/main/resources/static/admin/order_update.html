@@ -92,8 +92,11 @@ for(i=0;i<cs.length;i++){
 				
 				for(i in json){
 					var row = "";
+					if(i==0){
+						continue;
+					}
 					if(json[i].status==1){
-					row+="<option value =\"orderid\">"+json[i].orderid+"</option>";
+					row+="<option name=\"orderid\">"+json[i].orderid+"</option>";
 					select.innerHTML+=row;
 					}
 				}
@@ -102,6 +105,31 @@ for(i=0;i<cs.length;i++){
 		});
 	}
 	
+	
+
+</script>
+
+<script>
+function update(){
+	var oid =$('#select option:selected').val();
+
+	var did =$('#did').val();
+	
+	var com =$('#com').val();
+	$.ajax({
+		type:'get',
+		url:'http://localhost:8080/ordermgr/deliver?orderid='+oid+"&deliveryid="+did+"&company="+com,
+		contentType:"text/html;charset=utf-8",
+		success:function(data){
+			var json=JSON.parse(data);
+			if(json.status==0){
+				location.href = "http://localhost:8080/admin/order_select.html";
+			}
+			
+		} 
+	});
+}
+
 </script>
 
 </head>
@@ -134,30 +162,30 @@ for(i=0;i<cs.length;i++){
 </form></td>
 </tr>
 </table>
-	<form action="/ordermgr/deliver" method="post">
+	
    <table width="100%" border="0" cellpadding="2" cellspacing="1" >
 		<tr>
 		<td width="11%" align="right">订单号</td>
         <td width="46%" >
-        <select width="200px" id="select">
+        <select name="orderid" width="200px" id="select">
         	 <option value ="">--请选择--</option>
         </select>
         </td>
         </tr>
         <tr>
 		<td width="11%" align="right">快递单号</td>
-        <td width="46%" ><input type="text" name="deliveryid" width="200px"></td>
+        <td width="46%" ><input type="text" name="deliveryid" width="200px" id="did"></td>
         </tr>	
 		<tr>
 		<td width="11%" align="right">快递公司</td>
-        <td width="46%" ><input type="text" name="company" width="200px"></td>
+        <td width="46%" ><input type="text" name="company" width="200px" id="com"></td>
         </tr>			
 		<tr>
 		<td width="11%" align="right">&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td width="46%" align="left" ><input type="submit" value="修&nbsp;&nbsp;改">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重&nbsp;&nbsp;置"></td>
+        <td width="46%" align="left" ><button onclick="update()">修&nbsp;&nbsp;改</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重&nbsp;&nbsp;置"></td>
         </tr>
 	</table>
-    </form>
+	
     </td>
   </tr>
   <tr>

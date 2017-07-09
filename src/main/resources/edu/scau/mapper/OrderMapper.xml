@@ -94,8 +94,9 @@
             <include refid="Example_Where_Clause"/>
         </if>
     </delete>
-    <insert id="insert" parameterType="edu.scau.model.Order">
-    insert into order (orderId, addressId, userId, 
+    <insert id="insert" parameterType="edu.scau.model.Order" 
+    useGeneratedKeys="true" keyProperty="orderid" keyColumn="orderId">
+    insert into `order` (orderId, addressId, userId, 
       total, status, time, 
       comment, remark)
     values (#{orderid,jdbcType=INTEGER}, #{addressid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, 

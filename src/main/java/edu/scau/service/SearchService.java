@@ -34,6 +34,7 @@ public class SearchService {
 	 */
 	public String byKey(String key){
 		List<SearchResult> result = mapper.selectByKey(key);
+		System.err.println("result:   "+ result.size());
 		JSONArray array = JSONUtil.listToArray(result, SearchResult.class);
 		return array.toString();
 	}

@@ -7,8 +7,11 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+
 import edu.scau.mapper.DeliveryMapper;
 import edu.scau.mapper.OrderMapper;
+import edu.scau.mapper.view.OrderDetail;
 import edu.scau.model.Delivery;
 import edu.scau.model.Order;
 import edu.scau.util.JSONUtil;
@@ -22,6 +25,17 @@ public class OrderManageService {
 	@Autowired
 	private DeliveryMapper deliveryMapper;
 	
+	
+	//连接查询order和delivery表
+	public String getOad(){
+		List<Object> list =  mapper.getOad();
+		for(int i=0;i<list.size();i++){
+			System.err.println(list.get(i).toString());
+		}
+		return list.toString();
+	}
+	
+	
 	/**
 	 * 所有订单
 	 * @return
@@ -32,7 +46,11 @@ public class OrderManageService {
 		return array.toString();
 	}
 	
-	
+	/**
+	 * 删除
+	 * @param orderid
+	 * @return
+	 */
 	public JSONObject delete(String orderid){
 		JSONObject json = new JSONObject();
 		try {
@@ -76,9 +94,11 @@ public class OrderManageService {
 	}
 
 
-	public String selectByOrderId(Delivery delivery) {	
-//		System.err.println(delivery.getDeliveryid()+delivery.getOrderid());
-		Delivery delivery2Return = deliveryMapper.selectByOrderId(delivery.getOrderid());
+	public String selectByOrderId(Order order) {	
+		Delivery delivery2Return = deliveryMapper.selectByOrderId(order.getOrderid());
+		if(delivery2Return==null){
+			return null;
+		}
 		System.err.println("Service  devid "+delivery2Return.getDeliveryid()+" com "+delivery2Return.getCompany()+" orderid "+delivery2Return.getOrderid());
 		JSONObject json = new JSONObject(delivery2Return);
 		return json.toString();

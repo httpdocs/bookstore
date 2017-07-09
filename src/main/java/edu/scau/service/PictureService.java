@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.scau.mapper.BookMapper;
 import edu.scau.mapper.PictureMapper;
 import edu.scau.model.Picture;
 import edu.scau.util.DBSessionFactory;
@@ -14,12 +16,15 @@ import edu.scau.util.DBSessionFactory;
 @Service
 public class PictureService {
 	
+	@Autowired
+	private BookMapper bookMapper;
+	
 	/**
 	 * 图片上传
 	 * @param path
 	 * @return
 	 */
-	public int upload(String path){
+	public int upload(String path,String isbn){
 		Picture pic = new Picture();
 		pic.setPath(path);
 		SqlSession session = DBSessionFactory.openSession();
@@ -31,6 +36,7 @@ public class PictureService {
 			e.printStackTrace();
 			return -1;
 		}
+		bookMapper.updatePic(isbn, pic.getPictureid());
 		return pic.getPictureid();
 	}
 	

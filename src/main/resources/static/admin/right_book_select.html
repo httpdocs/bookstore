@@ -98,7 +98,7 @@ function loaded(){
 					row += "<td width=\"12%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].author+"</td>";
 					row += "<td width=\"12%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].publish+"</td>";
 					row += "<td width=\"9%\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\">" + json[i].price+"</td>";
-					row += "<td width=\"14%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\"><input name=\"submit\" type=\"submit\" value=\"修改\" onclick=\"jumpUpdate("+json[i].isbn+")\" />|<input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne("+json[i].isbn+")\" /></td></tr>";
+					row += "<td width=\"14%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\"><input name=\"submit\" type=\"submit\" value=\"修改\" onclick=\"jumpUpdate("+json[i].isbn+")\" />|<input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne("+json[i].isbn+")\" /><input name=\"submit\" type=\"submit\" value=\"上传图片\" onclick=\"jumpPic('"+json[i].isbn+"')\" /></td></tr>";
 					list.innerHTML+=row;
 				}
 			}
@@ -107,6 +107,11 @@ function loaded(){
 
 function jumpUpdate(isbn){
 	location.href="right_book_update.html?isbn="+isbn;
+}
+
+function jumpPic(isbn){
+
+	location.href="picUpload.html?isbn="+isbn;
 }
 
 function deleteOne(isbn){

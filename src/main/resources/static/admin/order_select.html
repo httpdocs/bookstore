@@ -93,16 +93,25 @@ function getListOfOrder(){
 			var list = document.getElementById("list");
 			list.innerHTML="";
 			for(i in json){
+				if(i==0){
+					continue;
+				}
+				var statusStr = "";
+				if(json[i].status==2){
+					statusStr="成功发货";
+				}else{
+					statusStr="还没发货";
+				}
 				var row = "";				
 				row += "<tr><td width=\"8%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].orderid + "</td>";
 				row += "<td width=\"13%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\" >" +json[i].userid+"</td>";
-				row += "<td width=\"9%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\" >" + json[i].adderssid+"</td>";
+				row += "<td width=\"9%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\" >" + json[i].addressid+"</td>";
 				row += "<td width=\"8%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" +json[i].total+"</td>";
-				row += "<td width=\"10%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].status+"</td>";
+				row += "<td width=\"10%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + statusStr+"</td>";
 				row += "<td width=\"11%\"   bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].comment+"</td>";
 				row += "<td width=\"7%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].remark+"</td>";
 				row += "<td width=\"7%\"  bgcolor=\"#FFFFFF\" class=\"STYLE19\">" + json[i].time+"</td>";
-				row += "<td width=\"16%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\"><input name=\"submit\" type=\"submit\" value=\"修改\" />|<input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne("+json[i].orderid+")\" /></td></tr>";
+				row += "<td width=\"16%\" align=\"center\"  bgcolor=\"#FFFFFF\" class=\"STYLE6\"><input name=\"submit\" type=\"submit\" value=\"删除\" onclick=\"deleteOne("+json[i].orderid+")\" /></td></tr>";
 				list.innerHTML+=row;
 		}
 		}
